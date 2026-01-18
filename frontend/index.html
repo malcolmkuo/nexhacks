@@ -871,11 +871,12 @@
 
         // Swipe Like
         async function swipeLike() {
-            console.log('swipeLike() fired');
-            if (!appState.currentTrip) return;
-            
             const attraction = appState.filteredAttractions[appState.currentAttractionIndex];
             if (!attraction) return;
+            
+            console.log(`Liked ${attraction.name}`);
+            
+            if (!appState.currentTrip) return;
             
             try {
                 await fetch(`${API_BASE}/swipes`, {

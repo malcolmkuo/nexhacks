@@ -405,6 +405,20 @@ TOKYO_ATTRACTIONS = [
         "lng": 139.6944
     },
     {
+        "name": "Hamarikyu Gardens",
+        "destination": "Tokyo",
+        "category": "Relaxation",
+        "rating": 4.6,
+        "review_count": 9100,
+        "price_point": "$",
+        "image_url": "https://images.unsplash.com/photo-1549144511-f099e773c147?w=800&q=80",
+        "description": "Beautiful Japanese landscape garden with a tidal pond and traditional tea house. Peaceful oasis in central Tokyo.",
+        "scout_tip": "Visit the tea house on the island in the pond. Best time is autumn when the garden features special illuminations.",
+        "is_local_favorite": False,
+        "lat": 35.6586,
+        "lng": 139.7744
+    },
+    {
         "name": "Tokyo DisneySea",
         "destination": "Tokyo",
         "category": "Adventure",
