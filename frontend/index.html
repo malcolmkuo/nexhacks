@@ -20,6 +20,7 @@
                 extend: {
                     colors: {
                         "primary": "#4F46E5", // Electric Indigo
+                        "primary-dark": "#3730a3", // Darker indigo for hover states
                         "secondary": "#1e1b4b",
                         "accent-sky": "#bae6fd",
                         "background-light": "#f8fafc",
@@ -74,6 +75,20 @@
         }
         .custom-scrollbar::-webkit-scrollbar-thumb {
             background-color: #cbd5e1;
+            border-radius: 20px;
+        }
+        .scroller {
+            scrollbar-width: thin;
+            scrollbar-color: #e5e7eb transparent;
+        }
+        .scroller::-webkit-scrollbar {
+            width: 4px;
+        }
+        .scroller::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .scroller::-webkit-scrollbar-thumb {
+            background-color: #e5e7eb;
             border-radius: 20px;
         }
     </style>
@@ -185,20 +200,26 @@
                             </div>
                             <div class="p-4 bg-white/20">
                                 <div class="relative group flex gap-2">
-                                    <span class="material-symbols-outlined absolute left-3 top-2.5 text-gray-400">search</span>
-                                    <input id="squad-member-input" class="flex-1 bg-gray-50/80 border-0 ring-1 ring-gray-200 rounded-lg py-2.5 pl-10 pr-4 text-sm focus:ring-2 focus:ring-primary focus:bg-white transition-all placeholder:text-gray-400 text-gray-900" placeholder="Search by name or email" type="text" onkeypress="if(event.key==='Enter') addSquadMember()"/>
+                                    <div class="relative flex-1">
+                                        <span class="material-symbols-outlined absolute left-3 top-2.5 text-gray-400 group-focus-within:text-primary transition-colors">search</span>
+                                        <input id="squad-member-input" class="w-full bg-gray-50/80 border-0 ring-1 ring-gray-200 rounded-lg py-2.5 pl-10 pr-4 text-sm focus:ring-2 focus:ring-primary focus:bg-white transition-all placeholder:text-gray-400 text-gray-900" placeholder="Search by name or email" type="text" onkeypress="if(event.key==='Enter') addSquadMember()"/>
+                                    </div>
                                     <button onclick="addSquadMember()" class="px-4 py-2.5 bg-primary hover:bg-primary/90 text-white rounded-lg text-sm font-semibold transition-colors">Add</button>
                                 </div>
                             </div>
-                            <div class="max-h-[380px] overflow-y-auto px-2 pb-2" id="squad-members-list">
+                            <div class="max-h-[380px] overflow-y-auto px-2 pb-2 scroller" id="squad-members-list">
                                 <div class="px-3 py-2 text-xs font-bold text-gray-400 uppercase tracking-wider">Squad Members</div>
                                 <!-- Squad members will be dynamically rendered here -->
                             </div>
                             <div class="p-4 bg-white/40 border-t border-gray-100/50 backdrop-blur-sm">
-                                <button onclick="handleSendInvites()" class="w-full bg-primary hover:bg-primary/90 text-white font-bold h-12 rounded-full shadow-lg shadow-indigo-500/20 transition-all transform active:scale-[0.98] flex items-center justify-center gap-2">
+                                <button onclick="handleSendInvites()" class="w-full bg-primary hover:bg-primary-dark text-white font-bold h-12 rounded-full shadow-lg shadow-indigo-500/20 transition-all transform active:scale-[0.98] flex items-center justify-center gap-2">
                                     <span>Send Invites</span>
                                     <span id="squad-count-badge" class="bg-white/20 px-2 py-0.5 rounded-full text-xs font-bold">0</span>
                                 </button>
+                                <div class="mt-3 flex items-center justify-center gap-2 text-xs text-gray-500">
+                                    <span class="material-symbols-outlined text-sm">link</span>
+                                    <span class="hover:text-primary cursor-pointer hover:underline">Copy invite link instead</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -710,15 +731,15 @@
                     const color = colors[index % colors.length];
                     
                     html += `
-                        <div class="group flex items-center justify-between p-2 rounded-xl hover:bg-white/60 cursor-pointer transition-colors mb-1">
+                        <div class="group flex items-center justify-between p-2 rounded-xl hover:bg-white/60 cursor-pointer transition-colors mb-1 border border-transparent hover:border-gray-100/50">
                             <div class="flex items-center gap-3">
                                 <div class="size-11 rounded-full flex items-center justify-center font-bold text-sm ring-2 ring-white" style="background-color: ${color.bg}; color: ${color.text}">${initials}</div>
                                 <div class="flex flex-col">
                                     <span class="text-sm font-bold text-gray-900">${member}</span>
-                                    <span class="text-xs text-gray-500">${member.includes('@') ? 'Email' : 'Name'}</span>
+                                    <span class="text-xs text-gray-500">${member.includes('@') ? member : 'Name'}</span>
                                 </div>
                             </div>
-                            <button onclick="removeSquadMember('${member.replace(/'/g, "\\'")}')" class="text-red-500 hover:text-red-700 pr-2 transition-colors">
+                            <button onclick="removeSquadMember('${member.replace(/'/g, "\\'").replace(/"/g, "&quot;")}')" class="text-red-500 hover:text-red-700 pr-2 transition-colors" title="Remove">
                                 <span class="material-symbols-outlined text-[20px]">close</span>
                             </button>
                         </div>
