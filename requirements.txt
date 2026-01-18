@@ -3,3 +3,8 @@ uvicorn[standard]
 supabase
 python-dotenv
 pydantic
+googlemaps
+httpx
+trafilatura
+beautifulsoup4
+lxml
