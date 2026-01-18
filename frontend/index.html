@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Navi - Group Travel Planning</title>
+    
+    <!-- Google Fonts - Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+    
+    <!-- Material Symbols Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#4F46E5", // Electric Indigo
+                        "secondary": "#1e1b4b",
+                        "accent-sky": "#bae6fd",
+                        "background-light": "#f8fafc",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .glass-header {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+        }
+        .hero-pattern-overlay {
+            background-image: radial-gradient(#6366f1 1px, transparent 1px);
+            background-size: 24px 24px;
+            opacity: 0.07;
+        }
+        @keyframes float-slow {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(20px, -20px); }
+        }
+        .blob-animate {
+            animation: float-slow 8s ease-in-out infinite;
+        }
+        .view {
+            display: none;
+        }
+        .view.active {
+            display: block;
+        }
+        .glass-modal {
+            background: rgba(255, 255, 255, 0.90);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+        }
+    </style>
+</head>
+<body class="bg-white text-slate-900 font-display antialiased selection:bg-primary/20 selection:text-primary">
+    
+    <!-- App Container -->
+    <div id="app" class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
+        
+        <!-- VIEW 1: LANDING PAGE -->
+        <div id="landing-view" class="view active">
+            <header class="glass-header fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 md:px-12 lg:px-20">
+                <div class="flex items-center gap-3">
+                    <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-primary text-white shadow-lg shadow-primary/30">
+                        <span class="material-symbols-outlined text-2xl">explore</span>
+                    </div>
+                    <h2 class="text-xl font-black tracking-tight text-slate-900">Navi</h2>
+                </div>
+            </header>
+            
+            <main class="flex-grow pt-20">
+                <section class="relative flex min-h-[90vh] flex-col items-center justify-center px-4 py-20 md:px-10 overflow-hidden bg-gradient-to-b from-white via-indigo-50/30 to-white">
+                    <div class="absolute inset-0 z-0 opacity-[0.04]">
+                        <img alt="Map pattern" class="h-full w-full object-cover grayscale invert mix-blend-multiply" src="https://images.unsplash.com/photo-1524661135-423995f22d0b?w=800&q=80"/>
+                    </div>
+                    <div class="absolute top-[-10%] right-[-5%] h-[600px] w-[600px] rounded-full bg-sky-200/40 blur-[100px] filter pointer-events-none blob-animate"></div>
+                    <div class="absolute bottom-[-10%] left-[-10%] h-[500px] w-[500px] rounded-full bg-indigo-200/30 blur-[100px] filter pointer-events-none blob-animate" style="animation-delay: -4s;"></div>
+                    <div class="hero-pattern-overlay absolute inset-0 z-0 pointer-events-none"></div>
+                    
+                    <div class="relative z-10 flex max-w-5xl flex-col items-center text-center">
+                        <div class="mb-8 inline-flex items-center gap-2 rounded-full bg-indigo-50 px-4 py-1.5 text-primary border border-indigo-100 shadow-sm">
+                            <span class="relative flex h-2 w-2">
+                                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                                <span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+                            </span>
+                            <span class="text-xs font-bold uppercase tracking-wide">Beta 2.0 is live</span>
+                        </div>
+                        <h1 class="font-display mb-8 text-5xl font-black leading-[0.95] tracking-tighter text-slate-900 sm:text-7xl md:text-8xl lg:text-[6.5rem]">
+                            Where the group chat <br class="hidden md:block"/> finally agrees on the <br/>
+                            <span class="bg-gradient-to-r from-primary to-sky-400 bg-clip-text text-transparent">"Japan Trip"</span>
+                        </h1>
+                        <p class="mb-10 max-w-2xl text-lg font-normal leading-relaxed text-slate-600 sm:text-xl">
+                            Stop the endless scrolling and silent disapproval. Swipe on destinations, find instant matches, and build the perfect itinerary together without the drama.
+                        </p>
+                        <div class="flex flex-col gap-4 sm:flex-row">
+                            <button onclick="showView('setup')" class="flex min-w-[200px] cursor-pointer items-center justify-center gap-3 rounded-full bg-primary px-8 py-5 text-lg font-bold text-white shadow-xl shadow-primary/30 ring-offset-2 transition-all hover:scale-105 hover:ring-2 hover:ring-primary/50 active:scale-95">
+                                <span>Start Planning</span>
+                                <span class="material-symbols-outlined">flight_takeoff</span>
+                            </button>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+
+        <!-- VIEW 2: TRIP SETUP -->
+        <div id="setup-view" class="view">
+            <header class="sticky top-0 z-40 flex items-center justify-between whitespace-nowrap border-b border-solid border-b-gray-200 bg-white/80 backdrop-blur-md px-10 py-3">
+                <div class="flex items-center gap-4 text-gray-900">
+                    <div class="size-8 bg-primary rounded-lg flex items-center justify-center text-white shadow-glow">
+                        <span class="material-symbols-outlined text-[20px]">explore</span>
+                    </div>
+                    <h2 class="text-gray-900 text-xl font-bold leading-tight tracking-[-0.015em]">Navi</h2>
+                </div>
+            </header>
+            
+            <main class="flex-1 layout-container flex flex-col items-center justify-start pt-10 px-6 pb-20">
+                <div class="w-full max-w-[1100px] relative grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                    <div class="lg:col-span-7 flex flex-col gap-8">
+                        <div class="space-y-2">
+                            <h1 class="text-gray-900 tracking-tight text-4xl font-extrabold leading-tight">Let's plan your adventure.</h1>
+                            <p class="text-gray-500 text-lg">Choose where to go and when.</p>
+                        </div>
+                        <div class="bg-white rounded-xl shadow-soft p-1 border border-gray-200">
+                            <div class="p-4 space-y-3">
+                                <label class="text-xs font-bold uppercase tracking-wider text-gray-400">Destination</label>
+                                <div class="w-full flex items-center gap-4 text-left">
+                                    <div class="size-12 rounded-lg bg-indigo-50 flex items-center justify-center text-primary">
+                                        <span class="material-symbols-outlined">temple_buddhist</span>
+                                    </div>
+                                    <div class="flex-1">
+                                        <div class="text-xl font-bold text-gray-900">Tokyo, Japan</div>
+                                        <div class="text-sm text-gray-400">Asia Pacific</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-white rounded-xl shadow-soft border border-gray-200 overflow-hidden">
+                            <div class="p-6 pb-0 flex justify-between items-end border-b border-gray-50">
+                                <div>
+                                    <label class="text-xs font-bold uppercase tracking-wider text-gray-400">Travel Dates</label>
+                                    <div class="text-lg font-bold text-gray-900 mt-1 flex items-center gap-2">
+                                        <span>Oct 12</span>
+                                        <span class="material-symbols-outlined text-gray-300 text-sm">arrow_forward</span>
+                                        <span>Oct 20</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-span-1 lg:col-span-5 relative z-10 w-full flex justify-center lg:justify-end lg:pt-20">
+                        <div class="glass-modal w-full max-w-[420px] rounded-2xl shadow-modal overflow-hidden">
+                            <div class="px-5 py-4 border-b border-gray-100/50 flex items-center justify-between bg-white/40">
+                                <div class="flex flex-col">
+                                    <h3 class="text-lg font-bold text-gray-900">Invite Squad</h3>
+                                    <span class="text-xs text-gray-500 font-medium">Who's coming with you?</span>
+                                </div>
+                            </div>
+                            <div class="p-4 bg-white/20">
+                                <div class="relative group">
+                                    <span class="material-symbols-outlined absolute left-3 top-2.5 text-gray-400">search</span>
+                                    <input class="w-full bg-gray-50/80 border-0 ring-1 ring-gray-200 rounded-lg py-2.5 pl-10 pr-4 text-sm focus:ring-2 focus:ring-primary focus:bg-white transition-all placeholder:text-gray-400 text-gray-900" placeholder="Search by name or email" type="text"/>
+                                </div>
+                            </div>
+                            <div class="max-h-[380px] overflow-y-auto px-2 pb-2">
+                                <div class="px-3 py-2 text-xs font-bold text-gray-400 uppercase tracking-wider">Recent Contacts</div>
+                                <div class="group flex items-center justify-between p-2 rounded-xl hover:bg-white/60 cursor-pointer transition-colors mb-1">
+                                    <div class="flex items-center gap-3">
+                                        <div class="size-11 rounded-full bg-[#E0F2FE] text-[#0369A1] flex items-center justify-center font-bold text-sm ring-2 ring-white">NB</div>
+                                        <div class="flex flex-col">
+                                            <span class="text-sm font-bold text-gray-900">Niko Bonatsos</span>
+                                            <span class="text-xs text-gray-500">Usually free in Oct</span>
+                                        </div>
+                                    </div>
+                                    <div class="text-blue-500 pr-2">
+                                        <span class="material-symbols-outlined text-[26px]" style="font-variation-settings: 'FILL' 1">check_circle</span>
+                                    </div>
+                                </div>
+                                <div class="group flex items-center justify-between p-2 rounded-xl hover:bg-white/60 cursor-pointer transition-colors mb-1">
+                                    <div class="flex items-center gap-3">
+                                        <div class="size-11 rounded-full bg-cover bg-center ring-2 ring-white" style="background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100');"></div>
+                                        <div class="flex flex-col">
+                                            <span class="text-sm font-bold text-gray-900">Cory Levy</span>
+                                            <span class="text-xs text-gray-500">In San Francisco</span>
+                                        </div>
+                                    </div>
+                                    <div class="text-blue-500 pr-2">
+                                        <span class="material-symbols-outlined text-[26px]" style="font-variation-settings: 'FILL' 1">check_circle</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-4 bg-white/40 border-t border-gray-100/50 backdrop-blur-sm">
+                                <button onclick="createTrip()" class="w-full bg-primary hover:bg-primary/90 text-white font-bold h-12 rounded-full shadow-lg shadow-indigo-500/20 transition-all transform active:scale-[0.98] flex items-center justify-center gap-2">
+                                    <span>Send Invites</span>
+                                    <span class="bg-white/20 px-2 py-0.5 rounded-full text-xs font-bold">2</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <!-- VIEW 3: SWIPE DECK -->
+        <div id="swipe-view" class="view">
+            <div class="flex h-screen">
+                <aside class="w-72 bg-primary flex flex-col h-full hidden md:flex flex-shrink-0">
+                    <div class="p-6 flex flex-col h-full">
+                        <div class="flex items-center gap-3 mb-10">
+                            <div class="size-10 bg-white rounded-xl flex items-center justify-center text-primary shadow-md">
+                                <span class="material-symbols-outlined text-2xl">explore</span>
+                            </div>
+                            <span class="text-xl font-bold tracking-tight text-white">Navi</span>
+                        </div>
+                        <div class="mb-8 p-4 bg-black/10 rounded-2xl border border-white/10">
+                            <div class="flex gap-3 mb-3">
+                                <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-lg size-12 shadow-sm" style="background-image: url('https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=100');"></div>
+                                <div class="flex flex-col justify-center">
+                                    <h2 class="text-white text-sm font-bold leading-tight" id="trip-name">Tokyo Fall 2024</h2>
+                                    <p class="text-indigo-200 text-xs font-medium mt-0.5" id="matches-count">0 Matches Found</p>
+                                </div>
+                            </div>
+                        </div>
+                        <nav class="flex flex-col gap-2 flex-1">
+                            <a class="flex items-center gap-3 px-4 py-3 rounded-xl bg-white text-primary shadow-sm">
+                                <span class="material-symbols-outlined">style</span>
+                                <span class="font-bold text-sm">Swipe Deck</span>
+                            </a>
+                        </nav>
+                    </div>
+                </aside>
+                
+                <main class="flex-1 flex flex-col relative h-full overflow-hidden">
+                    <header class="w-full px-8 py-6 flex justify-between items-center z-10 shrink-0">
+                        <div class="flex gap-2 overflow-x-auto">
+                            <button onclick="filterCategory(null)" class="filter-btn flex h-9 items-center gap-x-2 rounded-full bg-slate-800 text-white px-5 shadow-md transition-transform hover:scale-105 active:scale-95">
+                                <span class="text-sm font-semibold">All</span>
+                            </button>
+                            <button onclick="filterCategory('Food & Drink')" class="filter-btn flex h-9 items-center gap-x-2 rounded-full bg-white border border-gray-200 px-5 text-slate-800 hover:bg-gray-50 transition-all">
+                                <span class="material-symbols-outlined text-[18px]">restaurant</span>
+                                <span class="text-sm font-medium">Food & Drink</span>
+                            </button>
+                            <button onclick="filterCategory('Adventure')" class="filter-btn flex h-9 items-center gap-x-2 rounded-full bg-white border border-gray-200 px-5 text-slate-800 hover:bg-gray-50 transition-all">
+                                <span class="material-symbols-outlined text-[18px]">hiking</span>
+                                <span class="text-sm font-medium">Adventure</span>
+                            </button>
+                            <button onclick="filterCategory('Relaxation')" class="filter-btn flex h-9 items-center gap-x-2 rounded-full bg-white border border-gray-200 px-5 text-slate-800 hover:bg-gray-50 transition-all">
+                                <span class="material-symbols-outlined text-[18px]">spa</span>
+                                <span class="text-sm font-medium">Relaxation</span>
+                            </button>
+                        </div>
+                    </header>
+                    
+                    <div class="flex-1 flex flex-col items-center justify-center relative w-full max-w-2xl mx-auto px-4 pb-4">
+                        <div class="w-full max-w-sm mb-6 flex flex-col gap-2">
+                            <div class="flex justify-between items-end px-1">
+                                <span class="text-slate-800 font-bold text-sm tracking-wide">ACTIVITIES SWIPED</span>
+                                <span class="text-primary font-bold text-sm"><span id="swiped-count">0</span><span class="text-gray-400 font-medium">/<span id="total-count">0</span></span></span>
+                            </div>
+                            <div class="h-2 w-full bg-gray-200 rounded-full overflow-hidden">
+                                <div class="h-full bg-primary rounded-full transition-all" id="swipe-progress" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- Swipe Card Container -->
+                        <div id="swipe-card-container" class="relative w-full max-w-[400px] aspect-[3/4] max-h-[60vh] md:max-h-[600px]"></div>
+                        
+                        <div class="mt-8 flex flex-col items-center gap-6 z-30">
+                            <div class="flex items-center gap-8">
+                                <button onclick="swipePass()" class="size-16 rounded-full bg-white border-2 border-gray-200 text-slate-800 shadow-soft flex items-center justify-center transition-all hover:scale-110 hover:border-red-200 hover:bg-red-50 hover:text-red-500 active:scale-95">
+                                    <span class="material-symbols-outlined text-4xl">close</span>
+                                </button>
+                                <button onclick="swipeLike()" class="size-16 rounded-full bg-primary text-white shadow-lg flex items-center justify-center transition-all hover:scale-110 hover:brightness-110 active:scale-95">
+                                    <span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1">favorite</span>
+                                </button>
+                            </div>
+                            <button onclick="finishSwiping()" id="finish-btn" class="mt-4 px-6 py-3 bg-primary text-white rounded-full font-bold shadow-lg hover:bg-primary/90 transition-all" style="display: none;">
+                                Finish & View Itinerary
+                            </button>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+
+        <!-- VIEW 4: ITINERARY -->
+        <div id="itinerary-view" class="view">
+            <div class="fixed top-[72px] left-0 md:left-64 right-0 z-30 bg-white/95 backdrop-blur border-b border-gray-200/50 py-3 shadow-sm">
+                <div class="max-w-5xl mx-auto px-4 md:px-8 flex justify-center md:justify-start gap-3 overflow-x-auto" id="day-tabs">
+                    <!-- Day tabs will be generated dynamically -->
+                </div>
+            </div>
+            
+            <div class="md:pl-64 flex flex-col min-h-screen">
+                <main class="flex-grow pt-40 pb-32 px-4 md:px-8 max-w-5xl mx-auto w-full">
+                    <div class="mb-10">
+                        <div class="flex flex-col md:flex-row justify-between items-start gap-6 mb-8">
+                            <div>
+                                <span class="inline-block px-3 py-1 bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider rounded-full mb-3">Multi-Day Plan</span>
+                                <h2 class="text-4xl md:text-5xl font-black tracking-tight text-slate-900 mb-2" id="itinerary-trip-name">Your Tokyo Trip</h2>
+                                <div class="flex items-center gap-2 text-gray-500 font-medium">
+                                    <span class="material-symbols-outlined text-[20px]">calendar_month</span>
+                                    <p id="trip-dates">Oct 12 - Oct 15 • 4 Days</p>
+                                </div>
+                            </div>
+                            <div class="w-full md:w-auto flex flex-col items-end">
+                                <div class="bg-white p-5 rounded-xl shadow-soft border border-gray-100 w-full md:min-w-[280px]">
+                                    <div class="flex justify-between items-end mb-2">
+                                        <span class="text-xs text-gray-500 uppercase font-bold tracking-wider">Budget Used</span>
+                                        <div class="text-right">
+                                            <span class="text-2xl font-bold text-primary" id="budget-used">$0</span>
+                                            <span class="text-sm font-semibold text-gray-400">/ <span id="budget-limit">$1200</span></span>
+                                        </div>
+                                    </div>
+                                    <div class="w-full bg-gray-100 rounded-full h-2.5 overflow-hidden">
+                                        <div class="bg-primary h-full rounded-full shadow-lg transition-all" id="budget-progress" style="width: 0%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Itinerary items will be rendered here -->
+                    <div id="itinerary-items-container"></div>
+                </main>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        // API Base URL
+        const API_BASE = 'http://localhost:8000';
+        
+        // Application State
+        const appState = {
+            currentView: 'landing',
+            currentTrip: null,
+            attractions: [],
+            filteredAttractions: [],
+            currentAttractionIndex: 0,
+            swipedAttractions: [],
+            itinerary: [],
+            currentDay: 1
+        };
+
+        // View Management
+        function showView(viewName) {
+            document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+            document.getElementById(`${viewName}-view`).classList.add('active');
+            appState.currentView = viewName;
+            
+            if (viewName === 'swipe') {
+                loadAttractions();
+            } else if (viewName === 'itinerary') {
+                loadItinerary();
+            }
+        }
+
+        // Create Trip
+        async function createTrip() {
+            try {
+                const tripData = {
+                    name: 'Tokyo Fall 2024',
+                    destination: 'Tokyo',
+                    start_date: '2024-10-12',
+                    end_date: '2024-10-20',
+                    budget_limit: 1200.00
+                };
+                
+                const response = await fetch(`${API_BASE}/trips`, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(tripData)
+                });
+                
+                const trip = await response.json();
+                appState.currentTrip = trip;
+                
+                showView('swipe');
+            } catch (error) {
+                console.error('Error creating trip:', error);
+                alert('Failed to create trip. Make sure the backend is running on localhost:8000');
+            }
+        }
+
+        // Load Attractions
+        async function loadAttractions() {
+            try {
+                const response = await fetch(`${API_BASE}/attractions?destination=Tokyo`);
+                const attractions = await response.json();
+                
+                appState.attractions = attractions;
+                appState.filteredAttractions = attractions;
+                appState.currentAttractionIndex = 0;
+                appState.swipedAttractions = [];
+                
+                updateSwipeProgress();
+                renderSwipeCard();
+                
+                // Update trip name if available
+                if (appState.currentTrip) {
+                    document.getElementById('trip-name').textContent = appState.currentTrip.name;
+                }
+            } catch (error) {
+                console.error('Error loading attractions:', error);
+                alert('Failed to load attractions. Make sure the backend is running on localhost:8000');
+            }
+        }
+
+        // Filter by Category
+        function filterCategory(category) {
+            if (category === null) {
+                appState.filteredAttractions = appState.attractions;
+            } else {
+                appState.filteredAttractions = appState.attractions.filter(a => a.category === category);
+            }
+            appState.currentAttractionIndex = 0;
+            renderSwipeCard();
+            updateSwipeProgress();
+        }
+
+        // Render Swipe Card
+        function renderSwipeCard() {
+            const container = document.getElementById('swipe-card-container');
+            const attraction = appState.filteredAttractions[appState.currentAttractionIndex];
+            
+            if (!attraction) {
+                container.innerHTML = '<div class="text-center text-gray-500 p-8">No more attractions to swipe!</div>';
+                document.getElementById('finish-btn').style.display = 'block';
+                return;
+            }
+            
+            container.innerHTML = `
+                <div class="absolute inset-0 bg-white rounded-[24px] shadow-sm transform scale-[0.92] translate-y-6 opacity-60 z-0 border border-gray-200"></div>
+                <div class="absolute inset-0 bg-white rounded-[24px] shadow-md transform scale-[0.96] translate-y-3 opacity-80 z-10 border border-gray-200"></div>
+                <div class="absolute inset-0 w-full h-full rounded-[24px] overflow-hidden shadow-lg bg-black z-20 transform transition-transform duration-300 border border-black/5">
+                    <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('${attraction.image_url || 'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=800&q=80'}');"></div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent"></div>
+                    <div class="absolute top-0 left-0 w-full p-5 flex justify-between items-start">
+                        <div class="flex gap-2">
+                            ${attraction.is_local_favorite ? `<span class="px-3 py-1 bg-white/90 backdrop-blur-md text-primary text-xs font-bold uppercase tracking-wider rounded-full shadow-lg flex items-center gap-1">
+                                <span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1">thumb_up</span> Local Favorite
+                            </span>` : ''}
+                            <span class="px-3 py-1 bg-black/40 backdrop-blur-md text-white text-xs font-bold uppercase tracking-wider rounded-full shadow-lg flex items-center gap-1 border border-white/10">
+                                <span class="material-symbols-outlined text-[14px]">visibility</span> Views
+                            </span>
+                        </div>
+                    </div>
+                    <div class="absolute bottom-0 left-0 w-full p-6 flex flex-col gap-3 text-white">
+                        <div class="self-start px-3 py-1.5 bg-white/10 backdrop-blur-md border border-white/20 rounded-lg flex items-center gap-2">
+                            <span class="material-symbols-outlined text-[16px] text-primary">photo_camera</span>
+                            <span class="text-xs font-semibold tracking-wide">Iconic Photo Op</span>
+                        </div>
+                        <div>
+                            <h2 class="text-3xl font-extrabold leading-tight mb-2 tracking-tight drop-shadow-sm">${attraction.name}</h2>
+                            <div class="flex items-center gap-3 text-sm font-medium text-gray-200">
+                                <span class="text-white font-bold text-lg">${attraction.price_point || 'Free'}</span>
+                                <span class="w-1 h-1 bg-gray-400 rounded-full"></span>
+                                <span>${attraction.category}</span>
+                                <span class="w-1 h-1 bg-gray-400 rounded-full"></span>
+                                <div class="flex items-center gap-1.5 bg-white/10 backdrop-blur-sm px-2 py-0.5 rounded-md border border-white/10">
+                                    <span class="material-symbols-outlined text-[16px] text-yellow-400" style="font-variation-settings: 'FILL' 1">star</span>
+                                    <span class="text-white font-bold">${attraction.rating}</span>
+                                    <span class="text-xs text-gray-300 font-normal">(${(attraction.review_count / 1000).toFixed(1)}k)</span>
+                                </div>
+                            </div>
+                            ${attraction.scout_tip ? `<p class="text-xs text-gray-300 mt-2">💡 ${attraction.scout_tip}</p>` : ''}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Swipe Like
+        async function swipeLike() {
+            if (!appState.currentTrip) return;
+            
+            const attraction = appState.filteredAttractions[appState.currentAttractionIndex];
+            if (!attraction) return;
+            
+            try {
+                await fetch(`${API_BASE}/swipes`, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({
+                        trip_id: appState.currentTrip.id,
+                        attraction_id: attraction.id,
+                        is_liked: true
+                    })
+                });
+                
+                appState.swipedAttractions.push({...attraction, liked: true});
+                appState.currentAttractionIndex++;
+                updateSwipeProgress();
+                renderSwipeCard();
+            } catch (error) {
+                console.error('Error saving swipe:', error);
+            }
+        }
+
+        // Swipe Pass
+        function swipePass() {
+            const attraction = appState.filteredAttractions[appState.currentAttractionIndex];
+            if (!attraction) return;
+            
+            appState.swipedAttractions.push({...attraction, liked: false});
+            appState.currentAttractionIndex++;
+            updateSwipeProgress();
+            renderSwipeCard();
+        }
+
+        // Update Swipe Progress
+        function updateSwipeProgress() {
+            const total = appState.filteredAttractions.length;
+            const swiped = appState.currentAttractionIndex;
+            const percentage = total > 0 ? (swiped / total) * 100 : 0;
+            
+            document.getElementById('swiped-count').textContent = swiped;
+            document.getElementById('total-count').textContent = total;
+            document.getElementById('swipe-progress').style.width = `${percentage}%`;
+            
+            const liked = appState.swipedAttractions.filter(s => s.liked).length;
+            document.getElementById('matches-count').textContent = `${liked} Matches Found`;
+        }
+
+        // Finish Swiping
+        function finishSwiping() {
+            showView('itinerary');
+        }
+
+        // Load Itinerary
+        async function loadItinerary() {
+            if (!appState.currentTrip) return;
+            
+            try {
+                const response = await fetch(`${API_BASE}/itinerary?trip_id=${appState.currentTrip.id}`);
+                const itinerary = await response.json();
+                
+                appState.itinerary = itinerary;
+                
+                // Update trip info
+                document.getElementById('itinerary-trip-name').textContent = appState.currentTrip.name;
+                const startDate = new Date(appState.currentTrip.start_date);
+                const endDate = new Date(appState.currentTrip.end_date);
+                const days = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24)) + 1;
+                document.getElementById('trip-dates').textContent = `${formatDate(startDate)} - ${formatDate(endDate)} • ${days} Days`;
+                document.getElementById('budget-limit').textContent = `$${appState.currentTrip.budget_limit}`;
+                
+                // Render day tabs
+                renderDayTabs(days);
+                
+                // Render itinerary for current day
+                renderItineraryItems(appState.currentDay);
+                
+                // Calculate budget
+                calculateBudget();
+            } catch (error) {
+                console.error('Error loading itinerary:', error);
+            }
+        }
+
+        // Render Day Tabs
+        function renderDayTabs(totalDays) {
+            const container = document.getElementById('day-tabs');
+            container.innerHTML = '';
+            
+            for (let day = 1; day <= totalDays; day++) {
+                const btn = document.createElement('button');
+                btn.className = `flex-shrink-0 px-5 py-2 rounded-full text-sm font-bold transition-all ${day === appState.currentDay ? 'bg-primary text-white shadow-lg' : 'bg-white text-gray-600 border border-gray-200 hover:bg-gray-50'}`;
+                btn.textContent = `Day ${day}`;
+                btn.onclick = () => {
+                    appState.currentDay = day;
+                    renderDayTabs(totalDays);
+                    renderItineraryItems(day);
+                };
+                container.appendChild(btn);
+            }
+        }
+
+        // Render Itinerary Items
+        function renderItineraryItems(day) {
+            const container = document.getElementById('itinerary-items-container');
+            const dayItems = appState.itinerary.filter(item => item.day_number === day);
+            
+            if (dayItems.length === 0) {
+                container.innerHTML = '<div class="text-center text-gray-500 p-8">No activities scheduled for this day.</div>';
+                return;
+            }
+            
+            container.innerHTML = dayItems.map((item, index) => {
+                const attraction = item.attraction_id ? appState.attractions.find(a => a.id === item.attraction_id) : null;
+                return `
+                    <div class="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-8 items-center group mb-8">
+                        <div class="md:text-right md:pr-12 pl-16 md:pl-0 order-2 md:order-1 py-8">
+                            <div class="inline-flex flex-col md:items-end">
+                                <span class="text-primary font-bold text-lg">${item.start_time || 'TBD'}</span>
+                            </div>
+                        </div>
+                        <div class="pl-16 md:pl-12 order-3 md:order-2 w-full py-8">
+                            <div class="bg-white rounded-xl overflow-hidden shadow-soft hover:shadow-lg transition-all duration-300 border border-gray-100">
+                                ${attraction && attraction.image_url ? `<div class="sm:w-full h-48 bg-cover bg-center" style="background-image: url('${attraction.image_url}');"></div>` : ''}
+                                <div class="p-5 flex-1 flex flex-col justify-between">
+                                    <div>
+                                        <h3 class="font-bold text-xl leading-tight mb-2">${attraction ? attraction.name : 'Activity'}</h3>
+                                        ${attraction ? `<p class="text-sm text-gray-500 mb-4">${attraction.description || ''}</p>` : ''}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Calculate Budget
+        function calculateBudget() {
+            // Simple calculation - in real app, sum up prices from itinerary items
+            const budgetUsed = 450; // Placeholder
+            const budgetLimit = appState.currentTrip.budget_limit;
+            const percentage = (budgetUsed / budgetLimit) * 100;
+            
+            document.getElementById('budget-used').textContent = `$${budgetUsed}`;
+            document.getElementById('budget-progress').style.width = `${percentage}%`;
+        }
+
+        // Format Date
+        function formatDate(date) {
+            const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            return `${months[date.getMonth()]} ${date.getDate()}`;
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('Navi App Initialized');
+        });
+    </script>
+</body>
+</html>

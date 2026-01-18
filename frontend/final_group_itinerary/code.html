@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Navi - Final Group Itinerary V2</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#4F46E5","primary-hover": "#4338ca",
+                        "background-light": "#f8f6f5",
+                        "background-dark": "#23150f",
+                        "neutral-gray": "#9CA3AF",
+                        "deep-blue": "#1E3A8A",
+                        "charcoal": "#1d110c",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"],
+                        "body": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px" },
+                    boxShadow: {
+                        'soft': '0 4px 20px -2px rgba(0, 0, 0, 0.05)',
+                        'glow': '0 0 15px rgba(79, 70, 229, 0.3)',
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #e5e7eb;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #d1d5db;
+        }
+        .glass-header {
+            background: rgba(248, 246, 245, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+        }
+        .dark .glass-header {
+            background: rgba(35, 21, 15, 0.85);
+        }.timeline-solid {
+            width: 2px;
+            background-color: #E5E7EB;}
+        .dark .timeline-solid {
+            background-color: #374151;}
+        .timeline-dashed {
+            width: 2px;
+            background-image: linear-gradient(to bottom, #9CA3AF 50%, rgba(255, 255, 255, 0) 0%);
+            background-position: left;
+            background-size: 2px 10px;
+            background-repeat: repeat-y;
+        }
+        .dark .timeline-dashed {
+            background-image: linear-gradient(to bottom, #4B5563 50%, rgba(255, 255, 255, 0) 0%);
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-charcoal dark:text-gray-100 font-display min-h-screen flex flex-col antialiased selection:bg-primary/30">
+<aside class="fixed top-0 left-0 z-50 h-screen w-64 bg-white dark:bg-[#1a0f0a] border-r border-gray-200 dark:border-white/10 hidden md:flex flex-col shadow-soft">
+<div class="h-[72px] flex items-center gap-3 px-6 border-b border-transparent">
+<div class="size-8 bg-primary text-white rounded-lg flex items-center justify-center shadow-glow">
+<span class="material-symbols-outlined text-[20px]">explore</span>
+</div>
+<h1 class="text-xl font-bold tracking-tight">Navi</h1>
+</div>
+<nav class="flex-1 px-4 py-6 space-y-2">
+<button class="w-full flex items-center gap-3 px-4 py-3 text-gray-500 dark:text-gray-400 font-medium rounded-xl hover:bg-indigo-50 dark:hover:bg-white/5 hover:text-primary transition-all group">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">style</span>
+<span>Swipe Deck</span>
+</button>
+<button class="w-full flex items-center gap-3 px-4 py-3 bg-primary text-white font-bold rounded-xl shadow-glow transition-all">
+<span class="material-symbols-outlined">calendar_month</span>
+<span>Itinerary</span>
+</button>
+<button class="w-full flex items-center gap-3 px-4 py-3 text-gray-500 dark:text-gray-400 font-medium rounded-xl hover:bg-indigo-50 dark:hover:bg-white/5 hover:text-primary transition-all group">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">pie_chart</span>
+<span>Budget Detail</span>
+</button>
+</nav>
+<div class="p-6 border-t border-gray-100 dark:border-white/5">
+<div class="bg-indigo-50 dark:bg-indigo-900/20 rounded-xl p-4">
+<div class="flex items-center gap-2 mb-2 text-primary dark:text-indigo-300">
+<span class="material-symbols-outlined text-[20px]">diamond</span>
+<span class="text-xs font-bold uppercase tracking-wider">Pro Plan</span>
+</div>
+<p class="text-xs text-indigo-900/70 dark:text-indigo-200/70 mb-3">Upgrade for AI recommendations.</p>
+<button class="w-full text-xs font-bold text-primary bg-white dark:bg-indigo-900/50 py-2 rounded-lg shadow-sm hover:shadow-md transition-all">
+                Upgrade
+             </button>
+</div>
+</div>
+</aside>
+<header class="glass-header fixed top-0 left-0 md:left-64 right-0 z-40 border-b border-gray-200/50 dark:border-white/10 px-6 py-4 flex items-center justify-between transition-all duration-300 h-[72px]">
+<div class="flex md:hidden items-center gap-3 text-charcoal dark:text-white">
+<div class="size-8 bg-primary text-white rounded-lg flex items-center justify-center shadow-glow">
+<span class="material-symbols-outlined text-[20px]">explore</span>
+</div>
+<h1 class="text-xl font-bold tracking-tight">Navi</h1>
+</div>
+<div class="hidden md:block"></div>
+<div class="flex items-center gap-6">
+<div class="hidden md:flex items-center gap-2 bg-white dark:bg-white/5 px-4 py-2 rounded-full border border-gray-200 dark:border-white/10 shadow-sm">
+<span class="material-symbols-outlined text-primary text-[18px]">location_on</span>
+<span class="text-sm font-semibold">Tokyo, Japan</span>
+</div>
+<div class="flex items-center gap-4">
+<button class="relative p-2 text-gray-500 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 size-2 bg-primary rounded-full ring-2 ring-white dark:ring-background-dark"></span>
+</button>
+<div class="size-10 rounded-full bg-gray-200 overflow-hidden ring-2 ring-white dark:ring-gray-700 cursor-pointer transition-transform hover:scale-105" data-alt="User profile avatar showing a smiling person" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDckrzoCxFGnhFG36GM8dBGgq5y1BIkY4weGMTU1Bo-GltVgQ5VO4DQiIAv0gwat5h0e7Rq7lmTRXx4CH9pZCrNZVNhO__Kuz1DnwEZxCqkIhe891YGhizASFInAAi5ortscgeMkdSgMS35AwraKhVJkrhC_Dsd7zWv9lWKCcmY2Vwn3vQCiPAJrKzICU-ASX3n1X7XGau3deBfp4peO6DbCjs1oHuXh-KdRoQcoB7x8jmiHFofgQVNbeYV0zkKVZ_D3pXDupQpFmJb'); background-size: cover; background-position: center;"></div>
+</div>
+</div>
+</header>
+<div class="fixed top-[72px] left-0 md:left-64 right-0 z-30 bg-background-light/95 dark:bg-background-dark/95 backdrop-blur border-b border-gray-200/50 dark:border-white/5 py-3 shadow-sm">
+<div class="max-w-5xl mx-auto px-4 md:px-8 flex justify-center md:justify-start gap-3 overflow-x-auto no-scrollbar">
+<button class="flex-shrink-0 bg-primary text-white px-5 py-2 rounded-full text-sm font-bold shadow-glow transition-all">
+                Day 1
+        </button>
+<button class="flex-shrink-0 bg-white dark:bg-white/10 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-white/10 px-5 py-2 rounded-full text-sm font-medium hover:bg-gray-50 dark:hover:bg-white/20 transition-all">
+                Day 2
+        </button>
+<button class="flex-shrink-0 bg-white dark:bg-white/10 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-white/10 px-5 py-2 rounded-full text-sm font-medium hover:bg-gray-50 dark:hover:bg-white/20 transition-all">
+                Day 3
+        </button>
+</div>
+</div>
+<div class="md:pl-64 flex flex-col min-h-screen">
+<main class="flex-grow pt-40 pb-32 px-4 md:px-8 max-w-5xl mx-auto w-full">
+<div class="mb-10 animate-fade-in-up">
+<div class="flex flex-col md:flex-row justify-between items-start gap-6 mb-8">
+<div>
+<span class="inline-block px-3 py-1 bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider rounded-full mb-3">Multi-Day Plan</span>
+<h2 class="text-4xl md:text-5xl font-black tracking-tight text-charcoal dark:text-white mb-2">Your Tokyo Trip</h2>
+<div class="flex items-center gap-2 text-gray-500 dark:text-gray-400 font-medium">
+<span class="material-symbols-outlined text-[20px]">calendar_month</span>
+<p>Oct 12 - Oct 15 • 4 Days</p>
+</div>
+</div>
+<div class="w-full md:w-auto flex flex-col items-end">
+<div class="bg-white dark:bg-white/5 p-5 rounded-xl shadow-soft border border-gray-100 dark:border-white/10 w-full md:min-w-[280px]">
+<div class="flex justify-between items-end mb-2">
+<span class="text-xs text-gray-500 dark:text-gray-400 uppercase font-bold tracking-wider">Budget Used</span>
+<div class="text-right">
+<span class="text-2xl font-bold text-primary">$450</span>
+<span class="text-sm font-semibold text-gray-400">/ $1200</span>
+</div>
+</div>
+<div class="w-full bg-gray-100 dark:bg-gray-700 rounded-full h-2.5 overflow-hidden">
+<div class="bg-primary h-full rounded-full w-[37.5%] shadow-[0_0_10px_rgba(79,70,229,0.5)]"></div>
+</div>
+<div class="flex justify-between mt-2 text-[10px] text-gray-400 font-medium">
+<span>0%</span>
+<span>37%</span>
+<span>100%</span>
+</div>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+<div class="bg-white dark:bg-white/5 p-4 rounded-lg border border-gray-100 dark:border-white/10 flex flex-col justify-center items-center md:items-start">
+<span class="material-symbols-outlined text-primary mb-2">groups</span>
+<span class="text-2xl font-bold">5</span>
+<span class="text-xs text-gray-500 uppercase">Travelers</span>
+</div>
+<div class="bg-white dark:bg-white/5 p-4 rounded-lg border border-gray-100 dark:border-white/10 flex flex-col justify-center items-center md:items-start">
+<span class="material-symbols-outlined text-primary mb-2">flight_takeoff</span>
+<span class="text-2xl font-bold">JAL</span>
+<span class="text-xs text-gray-500 uppercase">Flight 006</span>
+</div>
+<div class="bg-white dark:bg-white/5 p-4 rounded-lg border border-gray-100 dark:border-white/10 flex flex-col justify-center items-center md:items-start">
+<span class="material-symbols-outlined text-primary mb-2">cloud</span>
+<span class="text-2xl font-bold">18°C</span>
+<span class="text-xs text-gray-500 uppercase">Avg Temp</span>
+</div>
+<div class="bg-white dark:bg-white/5 p-4 rounded-lg border border-gray-100 dark:border-white/10 flex flex-col justify-center items-center md:items-start cursor-pointer hover:bg-gray-50 dark:hover:bg-white/10 transition-colors group">
+<span class="material-symbols-outlined text-primary mb-2 group-hover:scale-110 transition-transform">add_circle</span>
+<span class="text-2xl font-bold">Add</span>
+<span class="text-xs text-gray-500 uppercase">New Activity</span>
+</div>
+</div>
+</div>
+<div class="relative">
+<div class="relative z-10 flex md:justify-center items-center mb-0 pl-16 md:pl-0">
+<div class="bg-charcoal dark:bg-white text-white dark:text-charcoal px-6 py-2 rounded-full text-sm font-bold shadow-lg flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">wb_sunny</span>
+                    Day 1 - Arrival
+                </div>
+</div>
+<div class="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-8 items-center group">
+<div class="absolute left-6 md:left-1/2 top-0 bottom-0 w-0.5 bg-gray-200 dark:bg-gray-700 transform md:-translate-x-1/2 -z-10"></div>
+<div class="absolute left-6 md:left-1/2 w-4 h-4 bg-primary rounded-full border-4 border-white dark:border-background-dark transform -translate-x-1/2 md:-translate-x-1/2 shadow-glow z-10"></div>
+<div class="md:text-right md:pr-12 pl-16 md:pl-0 order-2 md:order-1 py-8">
+<div class="inline-flex flex-col md:items-end">
+<span class="text-primary font-bold text-lg">10:00 AM</span>
+<span class="text-gray-500 text-sm">Terminal 1 North Wing</span>
+</div>
+</div>
+<div class="pl-16 md:pl-12 order-3 md:order-2 w-full py-8">
+<div class="bg-white dark:bg-white/5 rounded-xl overflow-hidden shadow-soft hover:shadow-lg transition-all duration-300 border border-gray-100 dark:border-white/5 group-hover:-translate-y-1">
+<div class="flex flex-col sm:flex-row h-full">
+<div class="sm:w-1/3 h-48 sm:h-auto bg-cover bg-center" data-alt="Modern architecture of Narita International Airport terminal interior" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBOUHZyHnrJ4rOI6u17JluJ0Zb01ul4KZ6JylmzQgCD5Q4SJzBlcmoNagBF8ROWvyrA1mQvzhPQEQJuyIbB_qOwAYr1MhI72BL2kGAw4_HpFOlW9ojl6PskSpGndS9FO2kdO8-Hzm8siGLaEhYCmHfDFjNJ4pHgQwrbZ8c9eA4RhyK_P4-jEnGjFjlgSRj-pOFBzO6DV5T0MHJ-eiIG5NIRoefutUEJKdpkmcwQ3IVyKx_MNrMLahiTrkB_KrX8W8lJOAXLOnPObM6g');"></div>
+<div class="p-5 flex-1 flex flex-col justify-between">
+<div>
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-bold text-xl leading-tight">Narita Airport Arrival</h3>
+<span class="bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300 text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wide">Confirmed</span>
+</div>
+<div class="flex items-center gap-4 text-sm mb-3">
+<div class="flex items-center gap-1 text-gray-700 dark:text-gray-300 font-medium">
+<span class="material-symbols-outlined text-green-600 text-[18px]">payments</span>
+<span>Free</span>
+</div>
+<div class="flex items-center gap-1 text-gray-500 dark:text-gray-400">
+<span class="material-symbols-outlined text-yellow-500 text-[18px]">star</span>
+<span>4.2</span>
+</div>
+</div>
+<p class="text-sm text-gray-500 dark:text-gray-400 mb-4 line-clamp-2">Meet at the arrival gate. Pick up pocket WiFi at the JAL counter.</p>
+</div>
+<div class="bg-indigo-50 dark:bg-indigo-900/20 p-3 rounded-lg mb-4 flex gap-3 items-start">
+<span class="material-symbols-outlined text-indigo-600 dark:text-indigo-400 text-[18px] mt-0.5">tips_and_updates</span>
+<div>
+<p class="text-xs font-bold text-indigo-800 dark:text-indigo-300 uppercase mb-0.5">Scout's Tip</p>
+<p class="text-xs text-indigo-900/80 dark:text-indigo-200/80 leading-snug">Exchange JR Pass vouchers at the basement travel center.</p>
+</div>
+</div>
+<div class="flex gap-2 mt-auto">
+<button class="flex-1 bg-primary hover:bg-primary-hover text-white text-xs font-bold py-2.5 px-4 rounded-full transition-colors flex items-center justify-center gap-1">
+<span class="material-symbols-outlined text-[16px]">directions</span>
+                                        Get Directions
+                                    </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="relative z-10 flex md:justify-center pl-16 md:pl-0 my-0 py-6">
+<div class="absolute left-6 md:left-1/2 top-0 bottom-0 border-l-2 border-dashed border-gray-300 dark:border-gray-600 transform md:-translate-x-1/2 -z-10"></div>
+<div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 py-2 px-4 rounded-full shadow-sm flex items-center gap-3 w-fit md:mx-auto hover:border-primary/50 transition-colors cursor-pointer z-10">
+<div class="size-8 rounded-full bg-indigo-100 dark:bg-indigo-900/30 text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">train</span>
+</div>
+<div class="flex flex-col">
+<span class="text-xs font-bold text-charcoal dark:text-gray-200">Skyliner Express</span>
+<span class="text-[10px] text-gray-500 font-medium">45 min • ¥2,500</span>
+</div>
+<span class="material-symbols-outlined text-gray-400 text-[16px]">chevron_right</span>
+</div>
+</div>
+<div class="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-8 items-center group">
+<div class="absolute left-6 md:left-1/2 top-0 bottom-0 w-0.5 bg-gray-200 dark:bg-gray-700 transform md:-translate-x-1/2 -z-10"></div>
+<div class="absolute left-6 md:left-1/2 w-3 h-3 bg-gray-300 dark:bg-gray-600 rounded-full border-2 border-white dark:border-background-dark transform -translate-x-1/2 md:-translate-x-1/2 z-10"></div>
+<div class="pl-16 md:pl-0 pr-0 md:pr-12 order-2 md:order-1 w-full py-8">
+<div class="bg-white dark:bg-white/5 rounded-xl overflow-hidden shadow-soft hover:shadow-lg transition-all duration-300 border border-gray-100 dark:border-white/5 group-hover:-translate-y-1">
+<div class="flex flex-col sm:flex-row h-full">
+<div class="sm:w-1/3 h-48 sm:h-auto bg-cover bg-center order-first sm:order-last md:order-first" data-alt="Luxurious lobby of Aman Tokyo hotel with high ceilings" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCWXuOgU4Y-Ri6_eHRToUx0-6i5hm2I0fzgDDV_azWGltRbyUQytD8ksCN9TxJW3w_kfaCMMbIm3Dt1K912YQens7bUu8gJo4QHt5jUiBmQjFCs5jGVmCO2oJokDIkBXBKng1SjyR-MCua5bOtMPRJVF4qkJUuA-jU0ZchsHOoQ6mFNQtmWMQmMhywrbI26H83z7o_wCkIsG2Xwc0-g0aLFWlyRlUajd2AyL93rM5Cg-xfwi1_XmOAdnttWgQWWsEZUi_GHiXo8RIb3');"></div>
+<div class="p-5 flex-1 flex flex-col justify-between">
+<div>
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-bold text-xl leading-tight">Check-in: Aman Tokyo</h3>
+<span class="bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300 text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wide">Hotel</span>
+</div>
+<div class="flex items-center gap-4 text-sm mb-3">
+<div class="flex items-center gap-1 text-gray-700 dark:text-gray-300 font-medium">
+<span class="material-symbols-outlined text-green-600 text-[18px]">payments</span>
+<span>$350</span>
+</div>
+<div class="flex items-center gap-1 text-gray-500 dark:text-gray-400">
+<span class="material-symbols-outlined text-yellow-500 text-[18px]">star</span>
+<span>4.9</span>
+</div>
+</div>
+<p class="text-sm text-gray-500 dark:text-gray-400 mb-4">Otemachi Tower. Drop bags and freshen up.</p>
+</div>
+<div class="bg-orange-50 dark:bg-orange-900/20 p-3 rounded-lg mb-4 flex gap-3 items-start">
+<span class="material-symbols-outlined text-orange-600 dark:text-orange-400 text-[18px] mt-0.5">star</span>
+<div>
+<p class="text-xs font-bold text-orange-800 dark:text-orange-300 uppercase mb-0.5">Scout's Tip</p>
+<p class="text-xs text-orange-900/80 dark:text-orange-200/80 leading-snug">Ask for a room facing the Imperial Palace.</p>
+</div>
+</div>
+<div class="flex gap-2 mt-auto">
+<button class="flex-1 border border-gray-200 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-white/5 text-charcoal dark:text-white text-xs font-bold py-2.5 px-4 rounded-full transition-colors flex items-center justify-center gap-1">
+<span class="material-symbols-outlined text-[16px]">call</span>
+                                        Call Venue
+                                    </button>
+<button class="flex-1 bg-primary hover:bg-primary-hover text-white text-xs font-bold py-2.5 px-4 rounded-full transition-colors flex items-center justify-center gap-1">
+<span class="material-symbols-outlined text-[16px]">directions</span>
+                                        Get Directions
+                                    </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md:text-left md:pl-12 pl-16 order-3 md:order-2 py-8">
+<div class="inline-flex flex-col">
+<span class="text-charcoal dark:text-white font-bold text-lg">12:00 PM</span>
+<span class="text-gray-500 text-sm">Chiyoda City</span>
+</div>
+</div>
+</div>
+<div class="relative z-10 flex md:justify-center pl-16 md:pl-0 my-0 py-6">
+<div class="absolute left-6 md:left-1/2 top-0 bottom-0 border-l-2 border-dashed border-gray-300 dark:border-gray-600 transform md:-translate-x-1/2 -z-10"></div>
+<div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 py-2 px-4 rounded-full shadow-sm flex items-center gap-3 w-fit md:mx-auto hover:border-primary/50 transition-colors cursor-pointer z-10">
+<div class="size-8 rounded-full bg-gray-900 text-white flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">local_taxi</span>
+</div>
+<div class="flex flex-col">
+<span class="text-xs font-bold text-charcoal dark:text-gray-200">Uber Black</span>
+<span class="text-[10px] text-gray-500 font-medium">15 min • ¥3,000</span>
+</div>
+<span class="material-symbols-outlined text-gray-400 text-[16px]">chevron_right</span>
+</div>
+</div>
+<div class="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-8 items-center group">
+<div class="absolute left-6 md:left-1/2 top-0 bottom-0 w-0.5 bg-gray-200 dark:bg-gray-700 transform md:-translate-x-1/2 -z-10"></div>
+<div class="absolute left-6 md:left-1/2 w-3 h-3 bg-gray-300 dark:bg-gray-600 rounded-full border-2 border-white dark:border-background-dark transform -translate-x-1/2 md:-translate-x-1/2 z-10"></div>
+<div class="md:text-right md:pr-12 pl-16 md:pl-0 order-2 md:order-1 py-8">
+<div class="inline-flex flex-col md:items-end">
+<span class="text-charcoal dark:text-white font-bold text-lg">1:30 PM</span>
+<span class="text-gray-500 text-sm">Roppongi Hills</span>
+</div>
+</div>
+<div class="pl-16 md:pl-12 order-3 md:order-2 w-full py-8">
+<div class="bg-white dark:bg-white/5 rounded-xl overflow-hidden shadow-soft hover:shadow-lg transition-all duration-300 border border-gray-100 dark:border-white/5 group-hover:-translate-y-1">
+<div class="flex flex-col sm:flex-row h-full">
+<div class="sm:w-1/3 h-48 sm:h-auto bg-cover bg-center" data-alt="Delicious bowl of yuzu ramen with pork belly" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBXbVUCKaUytiLYIXj_7TgmMjIStGMLKw7Nadr5hMUJZ79iTj0341m-NFInR3zF8ZyLRaD4Ve1YKD4Qfq85znuWStwoIiTEkUQH57qvfCU67nDpOsF5mGJYqP0P8gmTt7GMwEI36r36l5P-Cg4HEpYnVd7pZh0iGUxs0K696Jc3D565s4u1_HVhGVYquq9z3jMVe3nhkniPbgA0QR7LmUxHTNsWALZsjgO9eshOvA3r6yPdwkXHFGPNjyCglPUdbRqt7czQYKRPHHD8');"></div>
+<div class="p-5 flex-1 flex flex-col justify-between">
+<div>
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-bold text-xl leading-tight">Lunch at Afuri Ramen</h3>
+<span class="bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300 text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wide">Food</span>
+</div>
+<div class="flex items-center gap-4 text-sm mb-3">
+<div class="flex items-center gap-1 text-gray-700 dark:text-gray-300 font-medium">
+<span class="material-symbols-outlined text-green-600 text-[18px]">payments</span>
+<span>$12</span>
+</div>
+<div class="flex items-center gap-1 text-gray-500 dark:text-gray-400">
+<span class="material-symbols-outlined text-yellow-500 text-[18px]">star</span>
+<span>4.6</span>
+</div>
+</div>
+<p class="text-sm text-gray-500 dark:text-gray-400 mb-4">Famous for their Yuzu Shio Ramen. Light and refreshing.</p>
+</div>
+<div class="bg-gray-50 dark:bg-white/5 p-3 rounded-lg mb-4 flex gap-3 items-start">
+<span class="material-symbols-outlined text-gray-500 dark:text-gray-400 text-[18px] mt-0.5">restaurant_menu</span>
+<div>
+<p class="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase mb-0.5">Menu Pick</p>
+<p class="text-xs text-gray-600 dark:text-gray-400 leading-snug">Order via the vending machine at the entrance.</p>
+</div>
+</div>
+<div class="flex gap-2 mt-auto">
+<button class="flex-1 bg-primary hover:bg-primary-hover text-white text-xs font-bold py-2.5 px-4 rounded-full transition-colors flex items-center justify-center gap-1">
+<span class="material-symbols-outlined text-[16px]">directions</span>
+                                        Get Directions
+                                    </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="relative z-10 flex md:justify-center pl-16 md:pl-0 mt-0 pb-12">
+<div class="absolute left-6 md:left-1/2 top-0 h-8 w-0.5 bg-gray-200 dark:bg-gray-700 transform md:-translate-x-1/2 -z-10"></div>
+<div class="size-3 bg-gray-300 dark:bg-gray-700 rounded-full mt-8"></div>
+</div>
+<div class="flex justify-center pb-8 pt-4">
+<button class="bg-gray-900 dark:bg-white hover:bg-primary dark:hover:bg-primary text-white dark:text-charcoal dark:hover:text-white px-8 py-3 rounded-full text-sm font-bold shadow-lg transition-all duration-300 flex items-center gap-2 group transform hover:-translate-y-0.5">
+<span class="material-symbols-outlined group-hover:rotate-12 transition-transform">search</span>
+                    Find More Activities
+                </button>
+</div>
+</div>
+</main>
+</div>
+
+</body></html>

@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Navi - Trip Setup &amp; Invite</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#4F46E5", // Electric Indigo
+                        "primary-dark": "#3730a3", // Darker indigo for hover states
+                        "background-light": "#F9FAFB", // Cool gray for a cleaner look with indigo
+                        "background-dark": "#111827", // Darker cool gray
+                        "ios-blue": "#007AFF", // System blue for checks
+                        "surface": "#ffffff",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px"},
+                    boxShadow: {
+                        'soft': '0 4px 20px -2px rgba(0, 0, 0, 0.05)',
+                        'modal': '0 25px 50px -12px rgba(79, 70, 229, 0.15)', // Indigo tinted shadow
+                        'glow': '0 0 15px rgba(79, 70, 229, 0.3)',
+                    }
+                },
+            },
+        }
+    </script>
+<style>.glass-modal {
+            background: rgba(255, 255, 255, 0.90);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 20px 60px -10px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(79, 70, 229, 0.05);
+        }.scroller {
+            scrollbar-width: thin;
+            scrollbar-color: #e5e7eb transparent;
+        }
+        .scroller::-webkit-scrollbar {
+            width: 4px;
+        }
+        .scroller::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .scroller::-webkit-scrollbar-thumb {
+            background-color: #e5e7eb;
+            border-radius: 20px;
+        }.check-circle {
+            font-variation-settings: 'FILL' 1, 'wght' 700, 'GRAD' 0, 'opsz' 24;
+        }
+        .uncheck-circle {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }@keyframes toastSlide {
+            0% { transform: translateY(100%); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-gray-900 relative min-h-screen flex flex-col overflow-x-hidden selection:bg-primary/20 selection:text-primary">
+<header class="sticky top-0 z-40 flex items-center justify-between whitespace-nowrap border-b border-solid border-b-gray-200 bg-white/80 backdrop-blur-md px-10 py-3">
+<div class="flex items-center gap-4 text-gray-900">
+<div class="size-8 bg-primary rounded-lg flex items-center justify-center text-white shadow-glow">
+<span class="material-symbols-outlined text-[20px]">explore</span>
+</div>
+<h2 class="text-gray-900 text-xl font-bold leading-tight tracking-[-0.015em]">Navi</h2>
+</div>
+<div class="flex flex-1 justify-end gap-6 items-center">
+<button class="flex items-center justify-center text-gray-600 hover:bg-gray-100 p-2 rounded-full transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="bg-center bg-no-repeat bg-cover rounded-full size-10 ring-2 ring-white shadow-sm" data-alt="User profile picture of a smiling traveler" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCG0om-k_uIJDSddY9XKcVoznaOGDVnFtavsBBkqF7erpI_67XOGlxIp1QCXUufgsjfBfSXrm55pQJ8xKyLOUjhtgmctIrzNwu9A4HhJf1fXoCEVi9tGXXIYZSRPGsPoZQ8O3bbxB-c2TuYaW-30y53IlradrZesaNy9fFzuo4rpFSVlZ9kaPzuegvgKQ1XArPbQ0Fo_D9KXq4YWHJ8U3bQVAE1pd1FZR9JXlz-StIsODOpL8I03GyEsE3WhdgYhjNlZMYX6MuwkBUu");'></div>
+</div>
+</header>
+<main class="flex-1 layout-container flex flex-col items-center justify-start pt-10 px-6 pb-20">
+<div class="w-full max-w-[1100px] relative grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+<div class="hidden lg:flex lg:col-span-7 flex-col gap-8 opacity-40 hover:opacity-100 transition-opacity duration-500">
+<div class="space-y-2">
+<h1 class="text-gray-900 tracking-tight text-4xl font-extrabold leading-tight">Let's plan your adventure.</h1>
+<p class="text-gray-500 text-lg">Choose where to go and when.</p>
+</div>
+<div class="bg-white rounded-xl shadow-soft p-1 border border-gray-200">
+<div class="p-4 space-y-3">
+<label class="text-xs font-bold uppercase tracking-wider text-gray-400">Destination</label>
+<button class="w-full flex items-center gap-4 text-left group">
+<div class="size-12 rounded-lg bg-indigo-50 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+<span class="material-symbols-outlined">temple_buddhist</span>
+</div>
+<div class="flex-1">
+<div class="text-xl font-bold text-gray-900">Tokyo, Japan</div>
+<div class="text-sm text-gray-400">Asia Pacific</div>
+</div>
+<span class="material-symbols-outlined text-gray-300">expand_circle_down</span>
+</button>
+</div>
+</div>
+<div class="bg-white rounded-xl shadow-soft border border-gray-200 overflow-hidden">
+<div class="p-6 pb-0 flex justify-between items-end border-b border-gray-50">
+<div>
+<label class="text-xs font-bold uppercase tracking-wider text-gray-400">Travel Dates</label>
+<div class="text-lg font-bold text-gray-900 mt-1 flex items-center gap-2">
+<span>Oct 12</span>
+<span class="material-symbols-outlined text-gray-300 text-sm">arrow_forward</span>
+<span>Oct 20</span>
+</div>
+</div>
+<button class="text-primary text-sm font-bold hover:underline mb-1">Edit</button>
+</div>
+<div class="flex flex-wrap lg:flex-nowrap p-6 gap-8 justify-center pointer-events-none grayscale-[0.2]">
+<div class="flex-1">
+<div class="flex items-center justify-between mb-4">
+<span class="font-bold text-sm">October 2023</span>
+</div>
+<div class="grid grid-cols-7 gap-y-2 text-center text-xs font-medium text-gray-400">
+<span>S</span><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span>
+<span></span><span></span><span></span>
+<span class="h-8 flex items-center justify-center">1</span>
+<span class="h-8 flex items-center justify-center">2</span>
+<span class="h-8 flex items-center justify-center">3</span>
+<span class="h-8 flex items-center justify-center">4</span>
+<span class="h-8 flex items-center justify-center">5</span>
+<span class="h-8 flex items-center justify-center">6</span>
+<span class="h-8 flex items-center justify-center">7</span>
+<span class="h-8 flex items-center justify-center">8</span>
+<span class="h-8 flex items-center justify-center">9</span>
+<span class="h-8 flex items-center justify-center">10</span>
+<span class="h-8 flex items-center justify-center">11</span>
+<span class="h-8 flex items-center justify-center bg-primary text-white rounded-l-full shadow-glow">12</span>
+<span class="h-8 flex items-center justify-center bg-indigo-100 text-primary">13</span>
+<span class="h-8 flex items-center justify-center bg-indigo-100 text-primary">14</span>
+<span class="h-8 flex items-center justify-center bg-indigo-100 text-primary">15</span>
+<span class="h-8 flex items-center justify-center bg-indigo-100 text-primary">16</span>
+<span class="h-8 flex items-center justify-center bg-indigo-100 text-primary">17</span>
+<span class="h-8 flex items-center justify-center bg-indigo-100 text-primary">18</span>
+<span class="h-8 flex items-center justify-center bg-indigo-100 text-primary">19</span>
+<span class="h-8 flex items-center justify-center bg-primary text-white rounded-r-full shadow-glow">20</span>
+<span class="h-8 flex items-center justify-center">21</span>
+<span class="h-8 flex items-center justify-center">22</span>
+</div>
+</div>
+<div class="flex-1 hidden xl:block">
+<div class="flex items-center justify-between mb-4">
+<span class="font-bold text-sm">November 2023</span>
+</div>
+<div class="grid grid-cols-7 gap-y-2 text-center text-xs font-medium text-gray-400">
+<span>S</span><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span>
+<span></span><span></span><span></span><span></span><span>1</span><span>2</span><span>3</span>
+<span class="h-8 flex items-center justify-center">4</span>
+<span class="h-8 flex items-center justify-center">5</span>
+<span class="h-8 flex items-center justify-center">6</span>
+<span class="h-8 flex items-center justify-center">7</span>
+<span class="h-8 flex items-center justify-center">8</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="col-span-1 lg:col-span-5 relative z-10 w-full flex justify-center lg:justify-end lg:pt-20">
+<div class="glass-modal w-full max-w-[420px] rounded-2xl shadow-modal overflow-hidden transform transition-all animate-[fadeInUp_0.4s_ease-out]">
+<div class="px-5 py-4 border-b border-gray-100/50 flex items-center justify-between bg-white/40">
+<div class="flex flex-col">
+<h3 class="text-lg font-bold text-gray-900">Invite Squad</h3>
+<span class="text-xs text-gray-500 font-medium">Who's coming with you?</span>
+</div>
+<button class="bg-gray-100 hover:bg-gray-200 text-gray-600 rounded-full p-1.5 transition-colors">
+<span class="material-symbols-outlined text-sm">close</span>
+</button>
+</div>
+<div class="p-4 bg-white/20">
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-3 top-2.5 text-gray-400 group-focus-within:text-primary transition-colors">search</span>
+<input class="w-full bg-gray-50/80 border-0 ring-1 ring-gray-200 rounded-lg py-2.5 pl-10 pr-4 text-sm focus:ring-2 focus:ring-primary focus:bg-white transition-all placeholder:text-gray-400 text-gray-900" placeholder="Search by name or email" type="text"/>
+</div>
+</div>
+<div class="scroller max-h-[380px] overflow-y-auto px-2 pb-2">
+<div class="px-3 py-2 text-xs font-bold text-gray-400 uppercase tracking-wider">Recent Contacts</div>
+<div class="group flex items-center justify-between p-2 rounded-xl hover:bg-white/60 cursor-pointer transition-colors mb-1 border border-transparent hover:border-gray-100/50">
+<div class="flex items-center gap-3">
+<div class="size-11 rounded-full bg-[#E0F2FE] text-[#0369A1] flex items-center justify-center font-bold text-sm ring-2 ring-white">
+                                NB
+                            </div>
+<div class="flex flex-col">
+<span class="text-sm font-bold text-gray-900">Niko Bonatsos</span>
+<span class="text-xs text-gray-500">Usually free in Oct</span>
+</div>
+</div>
+<div class="text-ios-blue pr-2">
+<span class="material-symbols-outlined check-circle text-[26px]">check_circle</span>
+</div>
+</div>
+<div class="group flex items-center justify-between p-2 rounded-xl hover:bg-white/60 cursor-pointer transition-colors mb-1 border border-transparent hover:border-gray-100/50">
+<div class="flex items-center gap-3">
+<div class="size-11 rounded-full bg-cover bg-center ring-2 ring-white" data-alt="Portrait of Cory Levy" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCLlhimAlxdA7KTVwmKL01rR0gUXKDv24J_IeDz_TsfzW991zwtvo7-NlXNjm6bOBBevTEXoHROzj5C1OXwIH9_g7Is9C_RsbjmhB1aOxeEcPlZaNjth1w37Z3LE7m0J1uMV4uz0vsPgifsZjg7jbsXvnvU8_lfKIReb0RUg8XsswNKwnrFFkyrWsT6lNArwSPLeu1ehjECr1qq3HWg2p83mus_5yQgE2Vj9yXbUZKYVVl9Rd5GA8D5BoVPBEUS1zwplHIxFV2ycnuZ");'></div>
+<div class="flex flex-col">
+<span class="text-sm font-bold text-gray-900">Cory Levy</span>
+<span class="text-xs text-gray-500">In San Francisco</span>
+</div>
+</div>
+<div class="text-ios-blue pr-2">
+<span class="material-symbols-outlined check-circle text-[26px]">check_circle</span>
+</div>
+</div>
+<div class="px-3 py-2 text-xs font-bold text-gray-400 uppercase tracking-wider mt-2">All Friends</div>
+<div class="group flex items-center justify-between p-2 rounded-xl hover:bg-white/60 cursor-pointer transition-colors mb-1 border border-transparent hover:border-gray-100/50">
+<div class="flex items-center gap-3">
+<div class="size-11 rounded-full bg-[#FEF3C7] text-[#B45309] flex items-center justify-center font-bold text-sm ring-2 ring-white">
+                                AM
+                            </div>
+<div class="flex flex-col">
+<span class="text-sm font-bold text-gray-900">Ashley Mayer</span>
+<span class="text-xs text-gray-500">ashley@example.com</span>
+</div>
+</div>
+<div class="text-gray-300 group-hover:text-gray-400 pr-2">
+<span class="material-symbols-outlined uncheck-circle text-[26px]">radio_button_unchecked</span>
+</div>
+</div>
+<div class="group flex items-center justify-between p-2 rounded-xl hover:bg-white/60 cursor-pointer transition-colors mb-1 border border-transparent hover:border-gray-100/50">
+<div class="flex items-center gap-3">
+<div class="size-11 rounded-full bg-cover bg-center ring-2 ring-white" data-alt="Portrait of a friend with sunglasses" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA5RQ_aMqFx0pOwy2ctonWkvBhPS0g93f0AY0sBdeq3fks1DHSY3HQRzsdUgyZsGE3iSWfWlViitlj3R_Y9NHpgPh1bOYYbrbBUCFK2yknvveJtlyHZHKr1eyrwEx7iHRiiQuIfvgFPUvJiiogQ6vvBF1Hp8uksJNtjmwrN34QFlOdG6Lz2ly0mJNYRmGvxP0VtuDr7b4ugZM42LZcHWCWx6Pu3aMBzvPSILVKvhTYovEdBfe9BVk20XPbvBGsW5mBF3AP5ZfH_tSq5");'></div>
+<div class="flex flex-col">
+<span class="text-sm font-bold text-gray-900">Sarah Johnson</span>
+<span class="text-xs text-gray-500">Last trip: Bali 2022</span>
+</div>
+</div>
+<div class="text-gray-300 group-hover:text-gray-400 pr-2">
+<span class="material-symbols-outlined uncheck-circle text-[26px]">radio_button_unchecked</span>
+</div>
+</div>
+<div class="group flex items-center justify-between p-2 rounded-xl hover:bg-white/60 cursor-pointer transition-colors mb-1 border border-transparent hover:border-gray-100/50">
+<div class="flex items-center gap-3">
+<div class="size-11 rounded-full bg-[#F3E8FF] text-[#7E22CE] flex items-center justify-center font-bold text-sm ring-2 ring-white">
+                                DK
+                            </div>
+<div class="flex flex-col">
+<span class="text-sm font-bold text-gray-900">David King</span>
+<span class="text-xs text-gray-500">david@example.com</span>
+</div>
+</div>
+<div class="text-gray-300 group-hover:text-gray-400 pr-2">
+<span class="material-symbols-outlined uncheck-circle text-[26px]">radio_button_unchecked</span>
+</div>
+</div>
+</div>
+<div class="p-4 bg-white/40 border-t border-gray-100/50 backdrop-blur-sm">
+<button class="w-full bg-primary hover:bg-primary-dark text-white font-bold h-12 rounded-full shadow-lg shadow-indigo-500/20 transition-all transform active:scale-[0.98] flex items-center justify-center gap-2">
+<span>Send Invites</span>
+<span class="bg-white/20 px-2 py-0.5 rounded-full text-xs font-bold">2</span>
+</button>
+<div class="mt-3 flex items-center justify-center gap-2 text-xs text-gray-500">
+<span class="material-symbols-outlined text-sm">link</span>
+<span class="hover:text-primary cursor-pointer hover:underline">Copy invite link instead</span>
+</div>
+</div>
+</div>
+<div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 opacity-0 pointer-events-none bg-gray-900 text-white px-6 py-3 rounded-full shadow-xl flex items-center gap-3 transition-all duration-300" id="toast">
+<span class="material-symbols-outlined text-green-400">check_circle</span>
+<span class="font-medium">Squad Invited!</span>
+</div>
+</div>
+</div>
+</main>
+
+</body></html>

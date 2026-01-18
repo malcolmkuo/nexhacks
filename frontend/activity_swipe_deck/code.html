@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Navi Swipe Deck</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ff5100",
+                        "secondary": "#0A346C",
+                        "background-light": "#fcf9f8",
+                        "background-dark": "#1a100d",
+                        "card-light": "#ffffff",
+                        "card-dark": "#2a1c18",
+                        "indigo-accent": "#6F00FF",
+                        "sidebar-indigo": "#4F46E5",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.5rem", "lg": "0.75rem", "xl": "1.5rem", "2xl": "2rem", "full": "9999px" },
+                    boxShadow: {
+                        'soft': '0 4px 20px -2px rgba(0, 0, 0, 0.05)',
+                        'card': '0 20px 40px -4px rgba(0, 0, 0, 0.1), 0 8px 16px -4px rgba(0, 0, 0, 0.1)',
+                        'float': '0 10px 30px -5px rgba(255, 81, 0, 0.3)',
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background-color: rgba(0, 0, 0, 0.1);
+            border-radius: 20px;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-[#1d110c] dark:text-[#fcf9f8] antialiased overflow-hidden h-screen flex transition-colors duration-300">
+<aside class="w-72 bg-[#4F46E5] flex flex-col h-full z-20 hidden md:flex flex-shrink-0 transition-colors duration-300">
+<div class="p-6 flex flex-col h-full">
+<div class="flex items-center gap-3 mb-10">
+<div class="size-10 bg-white rounded-xl flex items-center justify-center text-[#4F46E5] shadow-md">
+<span class="material-symbols-outlined text-2xl">explore</span>
+</div>
+<span class="text-xl font-bold tracking-tight text-white">Navi</span>
+</div>
+<div class="mb-8 p-4 bg-black/10 rounded-2xl border border-white/10">
+<div class="flex gap-3 mb-3">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-lg size-12 shadow-sm" data-alt="Tokyo city street with neon lights at night" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBwgjhb_vviVpb10Rqj7g9pXLbRjGbzwR_UMIJnPnrtLVMGEf0vn0rnprFbDJjcqF_vmY9KdUDGd_iD6OcdUWEP9zPb11bzpHebKcrpRV2551Nd6VzxMyPcZFZ9LC9vA6o6_JVab_DqkwSAjh2BXq-dqwpZgj5UXPO44ydCdwiZxBDr4-NnMSlLNhDg9ZDaD9BW4RqlrNC1ZPyMAf86Xf2oaRCTeFoERJAwfeu76F-TAWhysC35gajfc4lf5O7BTVonlRxwdpzy7eKm");'></div>
+<div class="flex flex-col justify-center">
+<h2 class="text-white text-sm font-bold leading-tight">Tokyo Fall 2024</h2>
+<p class="text-indigo-200 text-xs font-medium mt-0.5">3 Matches Found</p>
+</div>
+</div>
+<div class="flex items-center -space-x-2 pl-1">
+<div class="w-8 h-8 rounded-full border-2 border-[#4F46E5] bg-gray-200 bg-cover bg-center" data-alt="User avatar 1" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDmFlz7_9i-XTpal1DPztdxagBDIPj8uRhScnNAiaa-pwWaN3o-HH5Xkf1_WFuKpDV9gq87Bsd1yceDfc5A0lgmOhdwafKsyMrpTDn5IjYr-PNkOM4PrFjDUtpTewm-SquJPVJyOTUH1fq2yOvHj1ehJ9x7jbsbIx7AaCr-pmfeTY9I0KIUTXwBpBgjFyblfOTnlkPgSma2oKs0dAoDg9WrSdCmFFrYQcwFX2UA7fpTPvrnNdW3CTYbRYG-dnXNrPJcpChIWxyJt0gV")'></div>
+<div class="w-8 h-8 rounded-full border-2 border-[#4F46E5] bg-gray-200 bg-cover bg-center" data-alt="User avatar 2" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA3-vPsq3snw1s-T8ySO2M9ZJH8qjdd3iaHnCmqJC8AyB639yHQgcTeJqKBhizEmSrCommC4jKSkRXJpTSu_ctpyqvP5i8y8BrFm9kc6szPEthy9I0Ae7itVLnUdUqQPWuGBgqwVyhLI_YaaOd6um7pBq570n197x6cla0f1-IDm6ZVRZ6BmF2Fm4wFOPZK9I83I3XVnx20Ajc0YVDlWgNU7sm0Hhx8Oj4XujqUSXi3nN1pN1PFkmeqtN6_oJWqyajs_gObiY0O8jIF")'></div>
+<div class="w-8 h-8 rounded-full border-2 border-[#4F46E5] bg-gray-200 bg-cover bg-center" data-alt="User avatar 3" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBf5QXYROlBLoIQ1EWjEVwi35Z6BUDajuzHTVoYFFAwqBEbd-CYBOFqAqEA4Gbs6Dp5TZ1ZSpmKQw78GjwcjMbrBUfaW8q1OPCTg04T50Ov5beLt96ZE9SO8p0TjIErZBuM5KwqOUN1S95TZZJVTyH45VApQRMaibfwMT8pUpypluBePZq7LaovB4asrG1nLeP1wiCbZnSiKfsLb0tc8oJf3t9YgRG8OK6EY8KyUto9XPvjzelTpdDS6KeBnmNwlh7bbUJ6sef00PTt")'></div>
+<div class="w-8 h-8 rounded-full border-2 border-[#4F46E5] bg-white text-[#4F46E5] flex items-center justify-center text-xs font-bold">+2</div>
+</div>
+</div>
+<nav class="flex flex-col gap-2 flex-1">
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl bg-white text-[#4F46E5] shadow-sm transition-all" href="#">
+<span class="material-symbols-outlined" data-weight="fill">style</span>
+<span class="font-bold text-sm">Swipe Deck</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-indigo-100 hover:bg-white/10 hover:text-white transition-all group" href="#">
+<span class="material-symbols-outlined">map</span>
+<span class="font-medium text-sm">Itinerary</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-indigo-100 hover:bg-white/10 hover:text-white transition-all group" href="#">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+<span class="font-medium text-sm">Budget Detail</span>
+</a>
+</nav>
+<div class="pt-6 border-t border-white/10">
+<p class="text-xs text-indigo-200 text-center">Navi v2.4 • Made for Explorers</p>
+</div>
+</div>
+</aside>
+<main class="flex-1 flex flex-col relative h-full overflow-hidden">
+<header class="w-full px-8 py-6 flex justify-between items-center z-10 shrink-0">
+<div class="flex gap-2 overflow-x-auto pb-1 no-scrollbar mask-gradient">
+<button class="flex h-9 items-center gap-x-2 rounded-full bg-secondary text-white px-5 shadow-md transition-transform hover:scale-105 active:scale-95">
+<span class="text-sm font-semibold">All</span>
+</button>
+<button class="flex h-9 items-center gap-x-2 rounded-full bg-white dark:bg-[#352621] border border-[#ebdcd5] dark:border-[#4a362f] px-5 text-secondary dark:text-white hover:bg-gray-50 dark:hover:bg-[#45322b] transition-all hover:scale-105 active:scale-95">
+<span class="material-symbols-outlined text-[18px]">restaurant</span>
+<span class="text-sm font-medium">Food &amp; Drink</span>
+</button>
+<button class="flex h-9 items-center gap-x-2 rounded-full bg-white dark:bg-[#352621] border border-[#ebdcd5] dark:border-[#4a362f] px-5 text-secondary dark:text-white hover:bg-gray-50 dark:hover:bg-[#45322b] transition-all hover:scale-105 active:scale-95">
+<span class="material-symbols-outlined text-[18px]">hiking</span>
+<span class="text-sm font-medium">Adventure</span>
+</button>
+<button class="flex h-9 items-center gap-x-2 rounded-full bg-white dark:bg-[#352621] border border-[#ebdcd5] dark:border-[#4a362f] px-5 text-secondary dark:text-white hover:bg-gray-50 dark:hover:bg-[#45322b] transition-all hover:scale-105 active:scale-95">
+<span class="material-symbols-outlined text-[18px]">spa</span>
+<span class="text-sm font-medium">Relaxation</span>
+</button>
+</div>
+<button class="md:hidden p-2 text-secondary dark:text-white">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</header>
+<div class="flex-1 flex flex-col items-center justify-center relative w-full max-w-2xl mx-auto px-4 pb-4">
+<div class="w-full max-w-sm mb-6 flex flex-col gap-2">
+<div class="flex justify-between items-end px-1">
+<span class="text-secondary dark:text-orange-100 font-bold text-sm tracking-wide">ACTIVITIES SWIPED</span>
+<span class="text-[#6F00FF] font-bold text-sm">12<span class="text-gray-400 dark:text-gray-500 font-medium">/20</span></span>
+</div>
+<div class="h-2 w-full bg-[#ebdcd5] dark:bg-[#352621] rounded-full overflow-hidden">
+<div class="h-full bg-[#6F00FF] rounded-full" style="width: 60%"></div>
+</div>
+</div>
+<div class="relative w-full max-w-[400px] aspect-[3/4] max-h-[60vh] md:max-h-[600px] group perspective-1000">
+<div class="absolute inset-0 bg-white dark:bg-[#352621] rounded-[24px] shadow-sm transform scale-[0.92] translate-y-6 opacity-60 z-0 border border-[#ebdcd5] dark:border-[#4a362f]"></div>
+<div class="absolute inset-0 bg-white dark:bg-[#352621] rounded-[24px] shadow-md transform scale-[0.96] translate-y-3 opacity-80 z-10 border border-[#ebdcd5] dark:border-[#4a362f]"></div>
+<div class="absolute inset-0 w-full h-full rounded-[24px] overflow-hidden shadow-card bg-black z-20 transform transition-transform duration-300 hover:scale-[1.01] cursor-grab active:cursor-grabbing border border-black/5 dark:border-white/10">
+<div class="absolute inset-0 bg-cover bg-center" data-alt="Stunning view of Tokyo city skyline from above at twilight" data-location="Tokyo, Japan" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuARgHleKhsmjkqF4v4yCNK74lBAPnDL3Rd-3uImvxRCoFY5-_r5SMsZy_G8AuiPvjUfAWYUzKdfxzp8aIjUCuMxv744OwxnVaC87usARtezmzPhYTrQ85oc8J4hBKKsEXTmkHLqr8ckW_NOYr9jJ_otaYuCQ62Cw4yqU8tKqTQlWowU3ubosQSn72IEB7380eI3k96J3HzCu_ZQy4HHfsPZrOpum4cgq9UuPbQoTkASVC-_tRlSOdLXRdO3_DqXeP3w3EMoHXMUuT_Z");'>
+</div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent"></div>
+<div class="absolute top-0 left-0 w-full p-5 flex justify-between items-start">
+<div class="flex gap-2">
+<span class="px-3 py-1 bg-white/90 backdrop-blur-md text-[#6F00FF] text-xs font-bold uppercase tracking-wider rounded-full shadow-lg flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]" data-weight="fill">thumb_up</span> Local Favorite
+                            </span>
+<span class="px-3 py-1 bg-black/40 backdrop-blur-md text-white text-xs font-bold uppercase tracking-wider rounded-full shadow-lg flex items-center gap-1 border border-white/10">
+<span class="material-symbols-outlined text-[14px]">visibility</span> Views
+                            </span>
+</div>
+</div>
+<div class="absolute bottom-0 left-0 w-full p-6 flex flex-col gap-3 text-white">
+<div class="self-start px-3 py-1.5 bg-white/10 backdrop-blur-md border border-white/20 rounded-lg flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-primary">photo_camera</span>
+<span class="text-xs font-semibold tracking-wide">Iconic Photo Op</span>
+</div>
+<div>
+<h2 class="text-3xl font-extrabold leading-tight mb-2 tracking-tight drop-shadow-sm">Shibuya Sky Deck</h2>
+<div class="flex items-center gap-3 text-sm font-medium text-gray-200">
+<span class="text-white font-bold text-lg">$$</span>
+<span class="w-1 h-1 bg-gray-400 rounded-full"></span>
+<span>Observation</span>
+<span class="w-1 h-1 bg-gray-400 rounded-full"></span>
+<div class="flex items-center gap-1.5 bg-white/10 backdrop-blur-sm px-2 py-0.5 rounded-md border border-white/10">
+<span class="material-symbols-outlined text-[16px] text-yellow-400" data-weight="fill">star</span>
+<span class="text-white font-bold">4.8</span>
+<span class="text-xs text-gray-300 font-normal">(2.1k)</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-8 flex flex-col items-center gap-6 z-30">
+<div class="flex items-center gap-8">
+<div class="flex flex-col items-center gap-2 group">
+<button class="size-16 rounded-full bg-white dark:bg-[#352621] border-2 border-[#ebdcd5] dark:border-[#4a362f] text-secondary dark:text-gray-300 shadow-soft flex items-center justify-center transition-all hover:scale-110 hover:border-red-200 hover:bg-red-50 dark:hover:bg-[#3f2121] hover:text-red-500 active:scale-95 focus:outline-none focus:ring-4 focus:ring-red-100 dark:focus:ring-red-900">
+<span class="material-symbols-outlined text-4xl">close</span>
+</button>
+<div class="opacity-0 group-hover:opacity-100 transition-opacity text-[10px] font-bold uppercase tracking-wider text-gray-400 bg-white dark:bg-[#352621] px-2 py-1 rounded shadow-sm border border-gray-100 dark:border-[#4a362f] absolute translate-y-[84px]">
+                            Pass <span class="text-[9px] border border-gray-300 dark:border-gray-600 rounded px-1 ml-1">←</span>
+</div>
+</div>
+<button class="size-10 rounded-full bg-white/50 dark:bg-white/10 text-secondary dark:text-white backdrop-blur flex items-center justify-center hover:bg-white dark:hover:bg-white/20 transition-all shadow-sm">
+<span class="material-symbols-outlined text-xl">info</span>
+</button>
+<div class="flex flex-col items-center gap-2 group">
+<button class="size-16 rounded-full bg-[#6F00FF] text-white shadow-[0_10px_30px_-5px_rgba(111,0,255,0.4)] flex items-center justify-center transition-all hover:scale-110 hover:brightness-110 active:scale-95 focus:outline-none focus:ring-4 focus:ring-indigo-200 dark:focus:ring-indigo-900">
+<span class="material-symbols-outlined text-3xl" data-weight="fill">favorite</span>
+</button>
+<div class="opacity-0 group-hover:opacity-100 transition-opacity text-[10px] font-bold uppercase tracking-wider text-gray-400 bg-white dark:bg-[#352621] px-2 py-1 rounded shadow-sm border border-gray-100 dark:border-[#4a362f] absolute translate-y-[84px]">
+                            Like <span class="text-[9px] border border-gray-300 dark:border-gray-600 rounded px-1 ml-1">→</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+
+</body></html>
