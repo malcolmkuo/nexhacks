@@ -78,11 +78,11 @@
 <span class="material-symbols-outlined" data-weight="fill">style</span>
 <span class="font-bold text-sm">Swipe Deck</span>
 </a>
-<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-indigo-100 hover:bg-white/10 hover:text-white transition-all group" href="#">
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-indigo-100 hover:bg-white/10 hover:text-white transition-all group" href="../final_group_itinerary/code.html">
 <span class="material-symbols-outlined">map</span>
 <span class="font-medium text-sm">Itinerary</span>
 </a>
-<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-indigo-100 hover:bg-white/10 hover:text-white transition-all group" href="#">
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-indigo-100 hover:bg-white/10 hover:text-white transition-all group" href="../budget_&_timeline_detail/code.html">
 <span class="material-symbols-outlined">account_balance_wallet</span>
 <span class="font-medium text-sm">Budget Detail</span>
 </a>
@@ -95,19 +95,19 @@
 <main class="flex-1 flex flex-col relative h-full overflow-hidden">
 <header class="w-full px-8 py-6 flex justify-between items-center z-10 shrink-0">
 <div class="flex gap-2 overflow-x-auto pb-1 no-scrollbar mask-gradient">
-<button class="flex h-9 items-center gap-x-2 rounded-full bg-secondary text-white px-5 shadow-md transition-transform hover:scale-105 active:scale-95">
+<button data-category="All" class="flex h-9 items-center gap-x-2 rounded-full bg-secondary text-white px-5 shadow-md transition-transform hover:scale-105 active:scale-95">
 <span class="text-sm font-semibold">All</span>
 </button>
-<button class="flex h-9 items-center gap-x-2 rounded-full bg-white dark:bg-[#352621] border border-[#ebdcd5] dark:border-[#4a362f] px-5 text-secondary dark:text-white hover:bg-gray-50 dark:hover:bg-[#45322b] transition-all hover:scale-105 active:scale-95">
+<button data-category="Food" class="flex h-9 items-center gap-x-2 rounded-full bg-white dark:bg-[#352621] border border-[#ebdcd5] dark:border-[#4a362f] px-5 text-secondary dark:text-white hover:bg-gray-50 dark:hover:bg-[#45322b] transition-all hover:scale-105 active:scale-95">
 <span class="material-symbols-outlined text-[18px]">restaurant</span>
 <span class="text-sm font-medium">Food &amp; Drink</span>
 </button>
-<button class="flex h-9 items-center gap-x-2 rounded-full bg-white dark:bg-[#352621] border border-[#ebdcd5] dark:border-[#4a362f] px-5 text-secondary dark:text-white hover:bg-gray-50 dark:hover:bg-[#45322b] transition-all hover:scale-105 active:scale-95">
-<span class="material-symbols-outlined text-[18px]">hiking</span>
+<button data-category="Sights" class="flex h-9 items-center gap-x-2 rounded-full bg-white dark:bg-[#352621] border border-[#ebdcd5] dark:border-[#4a362f] px-5 text-secondary dark:text-white hover:bg-gray-50 dark:hover:bg-[#45322b] transition-all hover:scale-105 active:scale-95">
+<span class="material-symbols-outlined text-[18px]">photo_camera</span>
 <span class="text-sm font-medium">Adventure</span>
 </button>
-<button class="flex h-9 items-center gap-x-2 rounded-full bg-white dark:bg-[#352621] border border-[#ebdcd5] dark:border-[#4a362f] px-5 text-secondary dark:text-white hover:bg-gray-50 dark:hover:bg-[#45322b] transition-all hover:scale-105 active:scale-95">
-<span class="material-symbols-outlined text-[18px]">spa</span>
+<button data-category="Hidden Gems" class="flex h-9 items-center gap-x-2 rounded-full bg-white dark:bg-[#352621] border border-[#ebdcd5] dark:border-[#4a362f] px-5 text-secondary dark:text-white hover:bg-gray-50 dark:hover:bg-[#45322b] transition-all hover:scale-105 active:scale-95">
+<span class="material-symbols-outlined text-[18px]">diamond</span>
 <span class="text-sm font-medium">Relaxation</span>
 </button>
 </div>
@@ -119,22 +119,22 @@
 <div class="w-full max-w-sm mb-6 flex flex-col gap-2">
 <div class="flex justify-between items-end px-1">
 <span class="text-secondary dark:text-orange-100 font-bold text-sm tracking-wide">ACTIVITIES SWIPED</span>
-<span class="text-[#6F00FF] font-bold text-sm">12<span class="text-gray-400 dark:text-gray-500 font-medium">/20</span></span>
+<span id="progress-text" class="text-[#6F00FF] font-bold text-sm">0<span class="text-gray-400 dark:text-gray-500 font-medium">/0</span></span>
 </div>
 <div class="h-2 w-full bg-[#ebdcd5] dark:bg-[#352621] rounded-full overflow-hidden">
-<div class="h-full bg-[#6F00FF] rounded-full" style="width: 60%"></div>
+<div id="progress-bar" class="h-full bg-[#6F00FF] rounded-full" style="width: 0%"></div>
 </div>
 </div>
 <div class="relative w-full max-w-[400px] aspect-[3/4] max-h-[60vh] md:max-h-[600px] group perspective-1000">
 <div class="absolute inset-0 bg-white dark:bg-[#352621] rounded-[24px] shadow-sm transform scale-[0.92] translate-y-6 opacity-60 z-0 border border-[#ebdcd5] dark:border-[#4a362f]"></div>
 <div class="absolute inset-0 bg-white dark:bg-[#352621] rounded-[24px] shadow-md transform scale-[0.96] translate-y-3 opacity-80 z-10 border border-[#ebdcd5] dark:border-[#4a362f]"></div>
-<div class="absolute inset-0 w-full h-full rounded-[24px] overflow-hidden shadow-card bg-black z-20 transform transition-transform duration-300 hover:scale-[1.01] cursor-grab active:cursor-grabbing border border-black/5 dark:border-white/10">
-<div class="absolute inset-0 bg-cover bg-center" data-alt="Stunning view of Tokyo city skyline from above at twilight" data-location="Tokyo, Japan" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuARgHleKhsmjkqF4v4yCNK74lBAPnDL3Rd-3uImvxRCoFY5-_r5SMsZy_G8AuiPvjUfAWYUzKdfxzp8aIjUCuMxv744OwxnVaC87usARtezmzPhYTrQ85oc8J4hBKKsEXTmkHLqr8ckW_NOYr9jJ_otaYuCQ62Cw4yqU8tKqTQlWowU3ubosQSn72IEB7380eI3k96J3HzCu_ZQy4HHfsPZrOpum4cgq9UuPbQoTkASVC-_tRlSOdLXRdO3_DqXeP3w3EMoHXMUuT_Z");'>
+<div id="swipe-card" class="absolute inset-0 w-full h-full rounded-[24px] overflow-hidden shadow-card bg-black z-20 transform transition-transform duration-300 hover:scale-[1.01] cursor-grab active:cursor-grabbing border border-black/5 dark:border-white/10">
+<div id="card-bg" class="absolute inset-0 bg-cover bg-center" data-alt="Stunning view of Tokyo city skyline from above at twilight" data-location="Tokyo, Japan" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuARgHleKhsmjkqF4v4yCNK74lBAPnDL3Rd-3uImvxRCoFY5-_r5SMsZy_G8AuiPvjUfAWYUzKdfxzp8aIjUCuMxv744OwxnVaC87usARtezmzPhYTrQ85oc8J4hBKKsEXTmkHLqr8ckW_NOYr9jJ_otaYuCQ62Cw4yqU8tKqTQlWowU3ubosQSn72IEB7380eI3k96J3HzCu_ZQy4HHfsPZrOpum4cgq9UuPbQoTkASVC-_tRlSOdLXRdO3_DqXeP3w3EMoHXMUuT_Z");'>
 </div>
 <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent"></div>
 <div class="absolute top-0 left-0 w-full p-5 flex justify-between items-start">
 <div class="flex gap-2">
-<span class="px-3 py-1 bg-white/90 backdrop-blur-md text-[#6F00FF] text-xs font-bold uppercase tracking-wider rounded-full shadow-lg flex items-center gap-1">
+<span id="local-favorite-badge" class="px-3 py-1 bg-white/90 backdrop-blur-md text-[#6F00FF] text-xs font-bold uppercase tracking-wider rounded-full shadow-lg flex items-center gap-1">
 <span class="material-symbols-outlined text-[14px]" data-weight="fill">thumb_up</span> Local Favorite
                             </span>
 <span class="px-3 py-1 bg-black/40 backdrop-blur-md text-white text-xs font-bold uppercase tracking-wider rounded-full shadow-lg flex items-center gap-1 border border-white/10">
@@ -143,21 +143,21 @@
 </div>
 </div>
 <div class="absolute bottom-0 left-0 w-full p-6 flex flex-col gap-3 text-white">
-<div class="self-start px-3 py-1.5 bg-white/10 backdrop-blur-md border border-white/20 rounded-lg flex items-center gap-2">
-<span class="material-symbols-outlined text-[16px] text-primary">photo_camera</span>
-<span class="text-xs font-semibold tracking-wide">Iconic Photo Op</span>
+<div id="type-badge" class="self-start px-3 py-1.5 bg-white/10 backdrop-blur-md border border-white/20 rounded-lg flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-primary">restaurant</span>
+<span id="type-text" class="text-xs font-semibold tracking-wide">Food</span>
 </div>
 <div>
-<h2 class="text-3xl font-extrabold leading-tight mb-2 tracking-tight drop-shadow-sm">Shibuya Sky Deck</h2>
+<h2 id="place-name" class="text-3xl font-extrabold leading-tight mb-2 tracking-tight drop-shadow-sm">Loading...</h2>
 <div class="flex items-center gap-3 text-sm font-medium text-gray-200">
-<span class="text-white font-bold text-lg">$$</span>
+<span id="price-text" class="text-white font-bold text-lg">$$</span>
 <span class="w-1 h-1 bg-gray-400 rounded-full"></span>
-<span>Observation</span>
+<span id="category-text">Category</span>
 <span class="w-1 h-1 bg-gray-400 rounded-full"></span>
 <div class="flex items-center gap-1.5 bg-white/10 backdrop-blur-sm px-2 py-0.5 rounded-md border border-white/10">
 <span class="material-symbols-outlined text-[16px] text-yellow-400" data-weight="fill">star</span>
-<span class="text-white font-bold">4.8</span>
-<span class="text-xs text-gray-300 font-normal">(2.1k)</span>
+<span id="rating-text" class="text-white font-bold">4.5</span>
+<span id="reviews-text" class="text-xs text-gray-300 font-normal">(0)</span>
 </div>
 </div>
 </div>
@@ -167,7 +167,7 @@
 <div class="mt-8 flex flex-col items-center gap-6 z-30">
 <div class="flex items-center gap-8">
 <div class="flex flex-col items-center gap-2 group">
-<button class="size-16 rounded-full bg-white dark:bg-[#352621] border-2 border-[#ebdcd5] dark:border-[#4a362f] text-secondary dark:text-gray-300 shadow-soft flex items-center justify-center transition-all hover:scale-110 hover:border-red-200 hover:bg-red-50 dark:hover:bg-[#3f2121] hover:text-red-500 active:scale-95 focus:outline-none focus:ring-4 focus:ring-red-100 dark:focus:ring-red-900">
+<button id="pass-btn" class="size-16 rounded-full bg-white dark:bg-[#352621] border-2 border-[#ebdcd5] dark:border-[#4a362f] text-secondary dark:text-gray-300 shadow-soft flex items-center justify-center transition-all hover:scale-110 hover:border-red-200 hover:bg-red-50 dark:hover:bg-[#3f2121] hover:text-red-500 active:scale-95 focus:outline-none focus:ring-4 focus:ring-red-100 dark:focus:ring-red-900">
 <span class="material-symbols-outlined text-4xl">close</span>
 </button>
 <div class="opacity-0 group-hover:opacity-100 transition-opacity text-[10px] font-bold uppercase tracking-wider text-gray-400 bg-white dark:bg-[#352621] px-2 py-1 rounded shadow-sm border border-gray-100 dark:border-[#4a362f] absolute translate-y-[84px]">
@@ -178,7 +178,7 @@
 <span class="material-symbols-outlined text-xl">info</span>
 </button>
 <div class="flex flex-col items-center gap-2 group">
-<button class="size-16 rounded-full bg-[#6F00FF] text-white shadow-[0_10px_30px_-5px_rgba(111,0,255,0.4)] flex items-center justify-center transition-all hover:scale-110 hover:brightness-110 active:scale-95 focus:outline-none focus:ring-4 focus:ring-indigo-200 dark:focus:ring-indigo-900">
+<button id="like-btn" class="size-16 rounded-full bg-[#6F00FF] text-white shadow-[0_10px_30px_-5px_rgba(111,0,255,0.4)] flex items-center justify-center transition-all hover:scale-110 hover:brightness-110 active:scale-95 focus:outline-none focus:ring-4 focus:ring-indigo-200 dark:focus:ring-indigo-900">
 <span class="material-symbols-outlined text-3xl" data-weight="fill">favorite</span>
 </button>
 <div class="opacity-0 group-hover:opacity-100 transition-opacity text-[10px] font-bold uppercase tracking-wider text-gray-400 bg-white dark:bg-[#352621] px-2 py-1 rounded shadow-sm border border-gray-100 dark:border-[#4a362f] absolute translate-y-[84px]">
@@ -190,4 +190,5 @@
 </div>
 </main>
 
+<script src="../app.js"></script>
 </body></html>
