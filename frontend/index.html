@@ -155,7 +155,7 @@
                                         <span class="material-symbols-outlined">temple_buddhist</span>
                                     </div>
                                     <div class="flex-1">
-                                        <div class="text-xl font-bold text-gray-900">Tokyo, Japan</div>
+                                        <input type="text" id="trip-destination" value="Tokyo, Japan" placeholder="Enter destination" class="text-xl font-bold text-gray-900 bg-transparent border-0 focus:outline-none focus:ring-2 focus:ring-primary rounded px-2 w-full" onchange="appState.tripConfig.destination = this.value"/>
                                         <div class="text-sm text-gray-400">Asia Pacific</div>
                                     </div>
                                 </div>
@@ -163,12 +163,12 @@
                         </div>
                         <div class="bg-white rounded-xl shadow-soft border border-gray-200 overflow-hidden">
                             <div class="p-6 pb-0 flex justify-between items-end border-b border-gray-50">
-                                <div>
+                                <div class="flex-1">
                                     <label class="text-xs font-bold uppercase tracking-wider text-gray-400">Travel Dates</label>
-                                    <div class="text-lg font-bold text-gray-900 mt-1 flex items-center gap-2">
-                                        <span>Oct 12</span>
+                                    <div class="text-lg font-bold text-gray-900 mt-1 flex items-center gap-2 flex-wrap">
+                                        <input type="date" id="trip-start-date" class="text-lg font-bold text-gray-900 bg-transparent border-0 focus:outline-none focus:ring-2 focus:ring-primary rounded px-2" onchange="appState.tripConfig.startDate = this.value"/>
                                         <span class="material-symbols-outlined text-gray-300 text-sm">arrow_forward</span>
-                                        <span>Oct 20</span>
+                                        <input type="date" id="trip-end-date" class="text-lg font-bold text-gray-900 bg-transparent border-0 focus:outline-none focus:ring-2 focus:ring-primary rounded px-2" onchange="appState.tripConfig.endDate = this.value"/>
                                     </div>
                                 </div>
                             </div>
@@ -184,42 +184,20 @@
                                 </div>
                             </div>
                             <div class="p-4 bg-white/20">
-                                <div class="relative group">
+                                <div class="relative group flex gap-2">
                                     <span class="material-symbols-outlined absolute left-3 top-2.5 text-gray-400">search</span>
-                                    <input class="w-full bg-gray-50/80 border-0 ring-1 ring-gray-200 rounded-lg py-2.5 pl-10 pr-4 text-sm focus:ring-2 focus:ring-primary focus:bg-white transition-all placeholder:text-gray-400 text-gray-900" placeholder="Search by name or email" type="text"/>
+                                    <input id="squad-member-input" class="flex-1 bg-gray-50/80 border-0 ring-1 ring-gray-200 rounded-lg py-2.5 pl-10 pr-4 text-sm focus:ring-2 focus:ring-primary focus:bg-white transition-all placeholder:text-gray-400 text-gray-900" placeholder="Search by name or email" type="text" onkeypress="if(event.key==='Enter') addSquadMember()"/>
+                                    <button onclick="addSquadMember()" class="px-4 py-2.5 bg-primary hover:bg-primary/90 text-white rounded-lg text-sm font-semibold transition-colors">Add</button>
                                 </div>
                             </div>
-                            <div class="max-h-[380px] overflow-y-auto px-2 pb-2">
-                                <div class="px-3 py-2 text-xs font-bold text-gray-400 uppercase tracking-wider">Recent Contacts</div>
-                                <div class="group flex items-center justify-between p-2 rounded-xl hover:bg-white/60 cursor-pointer transition-colors mb-1">
-                                    <div class="flex items-center gap-3">
-                                        <div class="size-11 rounded-full bg-[#E0F2FE] text-[#0369A1] flex items-center justify-center font-bold text-sm ring-2 ring-white">NB</div>
-                                        <div class="flex flex-col">
-                                            <span class="text-sm font-bold text-gray-900">Niko Bonatsos</span>
-                                            <span class="text-xs text-gray-500">Usually free in Oct</span>
-                                        </div>
-                                    </div>
-                                    <div class="text-blue-500 pr-2">
-                                        <span class="material-symbols-outlined text-[26px]" style="font-variation-settings: 'FILL' 1">check_circle</span>
-                                    </div>
-                                </div>
-                                <div class="group flex items-center justify-between p-2 rounded-xl hover:bg-white/60 cursor-pointer transition-colors mb-1">
-                                    <div class="flex items-center gap-3">
-                                        <div class="size-11 rounded-full bg-cover bg-center ring-2 ring-white" style="background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100');"></div>
-                                        <div class="flex flex-col">
-                                            <span class="text-sm font-bold text-gray-900">Cory Levy</span>
-                                            <span class="text-xs text-gray-500">In San Francisco</span>
-                                        </div>
-                                    </div>
-                                    <div class="text-blue-500 pr-2">
-                                        <span class="material-symbols-outlined text-[26px]" style="font-variation-settings: 'FILL' 1">check_circle</span>
-                                    </div>
-                                </div>
+                            <div class="max-h-[380px] overflow-y-auto px-2 pb-2" id="squad-members-list">
+                                <div class="px-3 py-2 text-xs font-bold text-gray-400 uppercase tracking-wider">Squad Members</div>
+                                <!-- Squad members will be dynamically rendered here -->
                             </div>
                             <div class="p-4 bg-white/40 border-t border-gray-100/50 backdrop-blur-sm">
-                                <button onclick="createTrip()" class="w-full bg-primary hover:bg-primary/90 text-white font-bold h-12 rounded-full shadow-lg shadow-indigo-500/20 transition-all transform active:scale-[0.98] flex items-center justify-center gap-2">
+                                <button onclick="handleSendInvites()" class="w-full bg-primary hover:bg-primary/90 text-white font-bold h-12 rounded-full shadow-lg shadow-indigo-500/20 transition-all transform active:scale-[0.98] flex items-center justify-center gap-2">
                                     <span>Send Invites</span>
-                                    <span class="bg-white/20 px-2 py-0.5 rounded-full text-xs font-bold">2</span>
+                                    <span id="squad-count-badge" class="bg-white/20 px-2 py-0.5 rounded-full text-xs font-bold">0</span>
                                 </button>
                             </div>
                         </div>
@@ -648,7 +626,13 @@
             currentAttractionIndex: 0,
             swipedAttractions: [],
             itinerary: [],
-            currentDay: 1
+            currentDay: 1,
+            squadMembers: [],
+            tripConfig: {
+                destination: 'Tokyo, Japan',
+                startDate: '',
+                endDate: ''
+            }
         };
 
         // View Management
@@ -661,18 +645,138 @@
                 loadAttractions();
             } else if (viewName === 'itinerary') {
                 loadItinerary();
+            } else if (viewName === 'setup') {
+                renderSquadMembers();
             }
         }
 
+        // Squad Management
+        function addSquadMember() {
+            const input = document.getElementById('squad-member-input');
+            const value = input.value.trim();
+            
+            if (!value) {
+                alert('Please enter a name or email');
+                return;
+            }
+            
+            // Check if already added
+            if (appState.squadMembers.includes(value)) {
+                alert('This person is already in your squad');
+                return;
+            }
+            
+            appState.squadMembers.push(value);
+            input.value = '';
+            renderSquadMembers();
+        }
+        
+        function removeSquadMember(member) {
+            appState.squadMembers = appState.squadMembers.filter(m => m !== member);
+            renderSquadMembers();
+        }
+        
+        function renderSquadMembers() {
+            const container = document.getElementById('squad-members-list');
+            const badge = document.getElementById('squad-count-badge');
+            
+            // Update badge count
+            if (badge) {
+                badge.textContent = appState.squadMembers.length;
+            }
+            
+            // Render members
+            let html = '<div class="px-3 py-2 text-xs font-bold text-gray-400 uppercase tracking-wider">Squad Members</div>';
+            
+            if (appState.squadMembers.length === 0) {
+                html += '<div class="px-3 py-4 text-sm text-gray-400 text-center">No squad members added yet</div>';
+            } else {
+                appState.squadMembers.forEach((member, index) => {
+                    const initials = member.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2);
+                    const colors = [
+                        { bg: '#E0F2FE', text: '#0369A1' },
+                        { bg: '#FEF3C7', text: '#B45309' },
+                        { bg: '#F3E8FF', text: '#7E22CE' },
+                        { bg: '#D1FAE5', text: '#065F46' },
+                        { bg: '#FCE7F3', text: '#9F1239' }
+                    ];
+                    const color = colors[index % colors.length];
+                    
+                    html += `
+                        <div class="group flex items-center justify-between p-2 rounded-xl hover:bg-white/60 cursor-pointer transition-colors mb-1">
+                            <div class="flex items-center gap-3">
+                                <div class="size-11 rounded-full flex items-center justify-center font-bold text-sm ring-2 ring-white" style="background-color: ${color.bg}; color: ${color.text}">${initials}</div>
+                                <div class="flex flex-col">
+                                    <span class="text-sm font-bold text-gray-900">${member}</span>
+                                    <span class="text-xs text-gray-500">${member.includes('@') ? 'Email' : 'Name'}</span>
+                                </div>
+                            </div>
+                            <button onclick="removeSquadMember('${member}')" class="text-red-500 hover:text-red-700 pr-2 transition-colors">
+                                <span class="material-symbols-outlined text-[20px]">close</span>
+                            </button>
+                        </div>
+                    `;
+                });
+            }
+            
+            container.innerHTML = html;
+        }
+        
+        // Handle Send Invites
+        function handleSendInvites() {
+            // Validate destination
+            const destinationInput = document.getElementById('trip-destination');
+            const destination = destinationInput ? destinationInput.value.trim() : appState.tripConfig.destination;
+            
+            if (!destination) {
+                alert('Please enter a destination');
+                return;
+            }
+            
+            // Validate dates
+            const startDateInput = document.getElementById('trip-start-date');
+            const endDateInput = document.getElementById('trip-end-date');
+            const startDate = startDateInput ? startDateInput.value : appState.tripConfig.startDate;
+            const endDate = endDateInput ? endDateInput.value : appState.tripConfig.endDate;
+            
+            if (!startDate || !endDate) {
+                alert('Please select both start and end dates');
+                return;
+            }
+            
+            if (new Date(startDate) >= new Date(endDate)) {
+                alert('End date must be after start date');
+                return;
+            }
+            
+            // Validate squad members
+            if (appState.squadMembers.length === 0) {
+                alert('Please add at least one squad member');
+                return;
+            }
+            
+            // Update trip config
+            appState.tripConfig.destination = destination;
+            appState.tripConfig.startDate = startDate;
+            appState.tripConfig.endDate = endDate;
+            
+            // Create trip
+            createTrip();
+        }
+        
         // Create Trip
         async function createTrip() {
             try {
+                // Extract city from destination (e.g., "Tokyo, Japan" -> "Tokyo")
+                const destination = appState.tripConfig.destination.split(',')[0].trim();
+                
                 const tripData = {
-                    name: 'Tokyo Fall 2024',
-                    destination: 'Tokyo',
-                    start_date: '2024-10-12',
-                    end_date: '2024-10-20',
-                    budget_limit: 1200.00
+                    name: `${destination} ${new Date(appState.tripConfig.startDate).getFullYear()}`,
+                    destination: destination,
+                    start_date: appState.tripConfig.startDate,
+                    end_date: appState.tripConfig.endDate,
+                    budget_limit: 1200.00,
+                    squad_members: appState.squadMembers
                 };
                 
                 const response = await fetch(`${API_BASE}/trips`, {
