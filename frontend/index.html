@@ -155,7 +155,7 @@
                                         <span class="material-symbols-outlined">temple_buddhist</span>
                                     </div>
                                     <div class="flex-1">
-                                        <input type="text" id="trip-destination" value="Tokyo, Japan" placeholder="Enter destination" class="text-xl font-bold text-gray-900 bg-transparent border-0 focus:outline-none focus:ring-2 focus:ring-primary rounded px-2 w-full" onchange="appState.tripConfig.destination = this.value"/>
+                                        <input type="text" id="trip-destination" value="Tokyo, Japan" placeholder="Enter destination" class="text-xl font-bold text-gray-900 bg-transparent border-0 focus:outline-none focus:ring-1 focus:ring-primary/50 rounded px-2 w-full" oninput="appState.tripConfig.destination = this.value"/>
                                         <div class="text-sm text-gray-400">Asia Pacific</div>
                                     </div>
                                 </div>
@@ -166,9 +166,9 @@
                                 <div class="flex-1">
                                     <label class="text-xs font-bold uppercase tracking-wider text-gray-400">Travel Dates</label>
                                     <div class="text-lg font-bold text-gray-900 mt-1 flex items-center gap-2 flex-wrap">
-                                        <input type="date" id="trip-start-date" class="text-lg font-bold text-gray-900 bg-transparent border-0 focus:outline-none focus:ring-2 focus:ring-primary rounded px-2" onchange="appState.tripConfig.startDate = this.value"/>
+                                        <input type="date" id="trip-start-date" class="text-lg font-bold text-gray-900 bg-transparent border-0 focus:outline-none focus:ring-1 focus:ring-primary/50 rounded px-2" onchange="appState.tripConfig.startDate = this.value"/>
                                         <span class="material-symbols-outlined text-gray-300 text-sm">arrow_forward</span>
-                                        <input type="date" id="trip-end-date" class="text-lg font-bold text-gray-900 bg-transparent border-0 focus:outline-none focus:ring-2 focus:ring-primary rounded px-2" onchange="appState.tripConfig.endDate = this.value"/>
+                                        <input type="date" id="trip-end-date" class="text-lg font-bold text-gray-900 bg-transparent border-0 focus:outline-none focus:ring-1 focus:ring-primary/50 rounded px-2" onchange="appState.tripConfig.endDate = this.value"/>
                                     </div>
                                 </div>
                             </div>
@@ -647,6 +647,13 @@
                 loadItinerary();
             } else if (viewName === 'setup') {
                 renderSquadMembers();
+                // Sync input values with tripConfig
+                const destInput = document.getElementById('trip-destination');
+                const startInput = document.getElementById('trip-start-date');
+                const endInput = document.getElementById('trip-end-date');
+                if (destInput) destInput.value = appState.tripConfig.destination || 'Tokyo, Japan';
+                if (startInput) startInput.value = appState.tripConfig.startDate || '';
+                if (endInput) endInput.value = appState.tripConfig.endDate || '';
             }
         }
 
@@ -711,7 +718,7 @@
                                     <span class="text-xs text-gray-500">${member.includes('@') ? 'Email' : 'Name'}</span>
                                 </div>
                             </div>
-                            <button onclick="removeSquadMember('${member}')" class="text-red-500 hover:text-red-700 pr-2 transition-colors">
+                            <button onclick="removeSquadMember('${member.replace(/'/g, "\\'")}')" class="text-red-500 hover:text-red-700 pr-2 transition-colors">
                                 <span class="material-symbols-outlined text-[20px]">close</span>
                             </button>
                         </div>
